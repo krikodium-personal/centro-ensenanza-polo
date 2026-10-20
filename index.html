@@ -8,7 +8,7 @@
 <meta name="description" content="Centro de enseñanza de la Asociación Argentina de Polo: equipo, niveles, certificaciones, plataforma online y seminarios presenciales.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=Source+Serif+4:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --forest:#1c3a13; --lime:#d3fa99; --sage:#757c5d; --olive:#9f995b; --eucalyptus:#698e79;
@@ -86,6 +86,9 @@ nav .wrap{height:96px!important}
   #certificaciones .certs::-webkit-scrollbar{display:none}
   #certificaciones .certs .cert{flex:0 0 76%;scroll-snap-align:start}
 }
+.hero .wrap .actions{display:grid;grid-template-columns:max-content;max-width:100%}
+.hero .wrap .actions .btn{justify-content:center;white-space:normal;text-align:center}
+.footer-brand img{height:72px;width:auto;display:block}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--forest)}
 .brand small{font-size:12px;font-weight:400;color:var(--pewter);letter-spacing:0;margin-left:4px}
 .links{display:flex;gap:28px;font-size:14px}
@@ -208,7 +211,7 @@ nav .wrap{height:96px!important}
 .mbtn[aria-pressed="true"]{background:var(--forest);color:var(--snow)}
 .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
 .grid .dow{font-size:12px;color:var(--pewter);text-align:center;padding-bottom:8px}
-.day{aspect-ratio:1/1;border-radius:12px;display:grid;place-items:center;font-size:14px;position:relative;color:var(--pewter)}
+.day{aspect-ratio:1/1;border-radius:8px;display:grid;place-items:center;font-size:14px;position:relative;color:var(--pewter)}
 .day.has{background:var(--forest);color:var(--snow);font-weight:500;cursor:pointer}
 .day.has.sel{background:var(--lime);color:var(--forest)}
 .day:disabled{cursor:default}
@@ -440,8 +443,140 @@ footer .brand{color:#fff!important}
 footer .dot{background:var(--clay)!important}
 footer h5{font-weight:500;letter-spacing:0;text-transform:none;font-size:13px}
 .legal{border-color:rgba(255,255,255,.15)}
-.totop{background:var(--ink);color:var(--snow);border:0;border-radius:12px}
+.totop{background:var(--ink);color:var(--snow);border:0;border-radius:8px}
 @media (max-width:980px){nav .links{display:none}}
+</style>
+<style id="theme-anthropic">
+/* Tema Anthropic: tokens de DESIGN MDs/Anthropic.md (pergamino, serif editorial, un solo acento clay) */
+:root{--forest:#141413;--ink:#141413;--snow:#f0eee6;--ivory:#faf9f5;--stone:#e3dacc;--manilla:#f5e3c7;--chalk:#cccbc8;--mist:#87867f;
+ --graphite:#3d3d3a;--pewter:#87867f;--frost:#b0aea5;--lime:#e3dacc;--clay:#d97757;--clay-deep:#c6613f;--cloud:#b0aea5;
+ --max:1280px;--sans:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+ --serif:'Source Serif 4',Georgia,Charter,ui-serif,serif}
+body{background:var(--snow);color:var(--ink);font-family:var(--serif);font-size:20px;line-height:1.4}
+/* sans solo para interfaz */
+button,input,select,label,nav,.btn,.pill,.cap,.label,.mono,.mlabel,.legend,.dow,.day,.mbtn,.step,.link,.seg,footer,.m-facts dt,.m-day time,summary,.stats span,.ay p,.ev .cap,.ev .date span,.cert p,.m-note,.promo,.tag-t{font-family:var(--sans)}
+section{padding:100px 0}
+@media (max-width:980px){section{padding:64px 0}}
+.wrap{max-width:var(--max)}
+/* tipografía: display sans 700 / serif 400 */
+.display{font-family:var(--sans);font-size:clamp(36px,5.4vw,61px);font-weight:700;line-height:1.1;letter-spacing:-.12px}
+.h-lg{font-family:var(--serif);font-size:clamp(34px,4.4vw,48px);font-weight:400;line-height:1.1;letter-spacing:0}
+.sub,.q.big .sub,.person .sub,.cert h3,.ev .date b,.panel .meta b,.mlabel span,.stats b,.m-day h3{font-family:var(--serif);font-weight:400;letter-spacing:0}
+.sub{font-size:24px;line-height:1.3}
+.body{font-family:var(--serif);font-size:20px;line-height:1.4;letter-spacing:0;color:var(--ink)}
+.muted,section.dark .muted,.path .muted,.hero .body{color:var(--graphite)}
+.cap,.stats span,.ay p,.ev .cap,.cert p,.m-note,form .cap{color:var(--mist)!important}
+.person .info p,.ay h4{font-family:var(--serif)}
+.ay h4{font-size:20px;font-weight:600}
+.person .muted{font-size:18px}
+.stats b{font-size:44px}
+/* enlaces editoriales con subrayado persistente */
+a{text-decoration-thickness:1px}
+.link{border-bottom:1px solid var(--ink);font-weight:500;padding:0 0 2px;color:var(--ink)}
+/* botones: marfil, esquinas inferiores 8px; clay solo en el CTA principal */
+.btn{font-family:var(--sans);font-size:15px;font-weight:500;padding:12px 31px;border:1px solid var(--chalk);border-radius:8px;letter-spacing:-.005em}
+.btn-fill,section.dark .btn-fill,.path.a .btn-fill{background:var(--ivory);color:var(--ink);border-color:var(--chalk)}
+.person .btn-fill,.panel .btn-fill,.path .btn-fill,.q .btn-fill,.m-panel .btn-fill,.ev .btn-fill{background:var(--snow)}
+.btn-inv{background:transparent;color:var(--ink);border:1px solid var(--mist);border-radius:8px;padding:11px 20px}
+.btn:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.hero .actions .btn-fill{background:var(--clay);border-color:var(--clay);color:var(--ink)}
+.hero .actions .btn-fill:hover{background:var(--clay-deep);border-color:var(--clay-deep)}
+/* etiquetas: texto en línea, sin contenedor */
+.pill,.pill-lime,.pill-out{background:none;border:0;border-radius:0;padding:0;font-family:var(--sans);font-size:12px;font-weight:600;text-transform:none;letter-spacing:-.02em;color:var(--ink);display:inline-block}
+.head .pill-out::before,.cal .pill-out::before,#faq-grid .pill-out::before,.hero .pill-lime::before{display:none}
+.head .pill-out,.cal .pill-out,#faq-grid .pill-out,.hero .pill-lime{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--graphite);display:inline-block}
+.tag-t{background:var(--ivory);color:var(--ink);padding:4px 8px;border-radius:0}
+.chips .pill{padding:0;border-bottom:1px solid var(--ink);color:var(--ink)}
+.ev .rt .pill{color:var(--graphite)}
+/* navegación */
+nav{background:var(--snow);border-bottom:1px solid var(--chalk)}
+nav .links a{font-size:14px;font-weight:500;color:var(--ink);padding:8px 12px;border-radius:0;background:none}
+nav .links a:hover{background:none;color:var(--ink);text-decoration:underline;text-underline-offset:6px}
+.nav-cta .btn{padding:10px 24px;font-size:14px}
+/* superficies: lienzo #f0eee6 → tarjeta #faf9f5 → manila → avena */
+.stone,section.dark{background:var(--snow)}
+#equipo.stone,#certificaciones.dark{background:var(--stone)}
+section.dark{color:var(--ink)}
+.person,.q,.panel,.ev,.path.a,.m-panel,.m-foot,.m-x,.cap-card,.mnav,input,select{background:var(--ivory)!important}
+.person{border:1px solid var(--chalk);border-radius:24px}
+.hero-art{background:var(--stone);border-radius:24px}
+.hero-photo,.photo,.vid{border-radius:16px}
+.photo{background:var(--stone)}
+#equipo.stone .photo{background:var(--snow)}
+.q{border:1px solid var(--chalk);border-radius:24px;color:var(--ink)}
+.q.big{background:var(--manilla)!important;border:0;padding:56px}
+.q blockquote,.q.big blockquote{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.4;letter-spacing:0}
+.q.big blockquote{font-size:clamp(22px,2.6vw,28px)}
+.quotes .q:not(.big) blockquote{font-size:20px}
+.quotes .q:not(.big) blockquote.long{font-size:17px;line-height:1.45}
+.q .who .sub{font-family:var(--sans);font-size:15px!important;font-weight:600}
+.avatar{background:var(--stone);color:var(--ink)}
+.panel{border:1px solid var(--chalk);border-radius:24px}
+.panel .meta{border-top:1px solid var(--chalk)}
+.panel li{font-family:var(--serif)}
+.panel li::before{background:var(--ink)}
+.bar{background:var(--stone)}
+.bar i{background:var(--ink)}
+.step{border-radius:0;color:var(--graphite);font-weight:500}
+.step b{font-family:var(--sans);font-size:16px;font-weight:500}
+.step[aria-selected="true"]{background:var(--ivory)!important;color:var(--ink);border:1px solid var(--chalk);border-top:0;border-radius:8px}
+.step:not([aria-selected="true"]):hover{background:none;text-decoration:underline;text-underline-offset:6px}
+.step .mono{border:0;padding:0;font-size:12px;font-weight:600}
+.vid{background:#141413;color:var(--ivory)}
+.vid .ph svg{stroke:var(--ivory)}
+.vid .play{background:var(--ivory);color:var(--ink);border-radius:8px}
+.path{border-radius:24px;border:1px solid var(--chalk)}
+.path.a{border:1px solid var(--chalk)}
+.path.b{background:var(--manilla);border:0}
+.path .h-lg{font-size:36px!important}
+.path ul,.path li{font-family:var(--serif);font-size:18px}
+.price b{font-family:var(--serif);font-size:32px;font-weight:400}
+.mbtn{border:1px solid var(--mist);border-radius:8px;font-weight:500;font-family:var(--sans)}
+.mbtn[aria-pressed="true"]{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.mnav{border:1px solid var(--mist);border-radius:8px}
+.mnav:hover:not(:disabled){background:var(--ink)!important;color:var(--ivory)}
+.day{border-radius:8px}
+.day.has{background:var(--ink);color:var(--ivory)}
+.day.has.sel{background:var(--manilla);color:var(--ink);outline:1px solid var(--ink);outline-offset:-1px}
+.ev{border:1px solid var(--chalk);border-radius:24px}
+.ev.sel,.ev:hover{border-color:var(--ink)}
+.ev h4{font-family:var(--serif);font-size:22px;font-weight:600}
+.seg button{border:1px solid var(--mist);border-radius:8px;color:var(--ink);font-weight:500}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+input,select{border:1px solid var(--mist);border-radius:8px;color:var(--ink);font-family:var(--sans)}
+label{color:var(--ink);font-weight:500}
+.ok{background:var(--manilla);color:var(--ink);border-radius:8px;font-family:var(--serif)}
+details,details:last-of-type{border-color:var(--chalk)}
+summary{font-family:var(--serif);font-size:24px;font-weight:400;color:var(--ink)}
+details p{font-family:var(--serif);font-size:18px;color:var(--graphite)}
+/* modal */
+.m-back{background:rgba(240,238,230,.3)}
+.m-panel{border-radius:24px;border:1px solid var(--chalk)}
+.m-foot{border-top:1px solid var(--chalk)}
+.m-facts div{border-top:1px solid var(--ink)}
+.m-facts dd{font-family:var(--serif)}
+.m-day li{font-family:var(--serif);font-size:18px;border-top:1px solid var(--chalk)}
+.m-day li time{font-family:var(--sans)}
+/* pie: única inversión */
+footer.dark{background:var(--ink);color:var(--ivory)}
+footer .muted{color:var(--cloud)}
+footer h5{color:var(--ivory);font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:0;text-transform:none}
+footer a,footer li,footer .legal{color:var(--cloud);font-family:var(--sans);font-size:12px}
+footer a:hover{color:var(--ivory)}
+footer .brand{color:var(--ivory)!important}
+footer .dot{background:var(--ivory)!important}
+.legal{border-color:#3d3d3a}
+.endorse{border-color:var(--chalk)}
+.totop{background:var(--ivory);color:var(--ink);border:1px solid var(--chalk);border-radius:8px}
+.vid .ph .cap{color:var(--ivory)!important}
+@media (max-width:980px){nav .links{display:none}}
+/* encabezados de sección: título arriba, subtítulo abajo */
+.head{grid-template-columns:1fr;gap:24px;align-items:start;margin-bottom:56px}
+.head .h-lg{max-width:none}
+.head p{justify-self:stretch;max-width:none}
+.h-lg,.path .h-lg{letter-spacing:-.02em}
+/* un solo radio para todos los botones */
+.btn,.btn-inv,.btn-fill,.mbtn,.mnav,.m-x,.seg button,.step,.vid .play,.totop,.nav-cta .btn{border-radius:8px}
 </style>
 </head>
 <body>
@@ -721,7 +856,7 @@ footer h5{font-weight:500;letter-spacing:0;text-transform:none;font-size:13px}
 <footer class="dark">
   <div class="wrap">
     <div>
-      <a class="brand" href="#top" style="color:var(--snow)"><span class="dot" style="background:var(--lime)"></span>Centro de Enseñanza</a>
+      <a class="brand footer-brand" href="#top" aria-label="Centro de Enseñanza de Polo, avalado por la Asociación Argentina de Polo"><img src="img/logo-centro-horizontal-oscuro.png" alt="Centro de Enseñanza de Polo — avalado por la Asociación Argentina de Polo"></a>
       <p class="cap muted" style="margin-top:16px;max-width:300px">Un programa de la Asociación Argentina de Polo.</p>
       <div class="logos"><span><img src="img/logo-aap.png" alt="Asociación Argentina de Polo"></span><span><img src="img/logo-cria-polo.png" alt="Cria Polo Argentino"></span></div>
     </div>
