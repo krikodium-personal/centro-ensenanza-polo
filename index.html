@@ -577,6 +577,12 @@ footer .dot{background:var(--ivory)!important}
 .h-lg,.path .h-lg{letter-spacing:-.02em}
 /* un solo radio para todos los botones */
 .btn,.btn-inv,.btn-fill,.mbtn,.mnav,.m-x,.seg button,.step,.vid .play,.totop,.nav-cta .btn{border-radius:8px}
+/* selector de idioma */
+.lang{display:flex;border:1px solid var(--mist);border-radius:8px;overflow:hidden;flex:none}
+.lang button{padding:9px 12px;font:500 13px/1 var(--sans);letter-spacing:.02em;color:var(--ink);border-radius:0}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--ivory)}
+.lang button:not([aria-pressed="true"]):hover{background:var(--stone)}
+.nav-cta{align-items:center}
 </style>
 </head>
 <body>
@@ -591,6 +597,7 @@ footer .dot{background:var(--ivory)!important}
       <a href="#seminarios">Seminarios</a>
     </div>
     <div class="nav-cta">
+      <div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
       <a class="btn btn-inv" href="#seminarios">Seminarios</a>
       <a class="btn btn-fill" href="#inscripcion">Inscribirme</a>
     </div>
@@ -877,30 +884,149 @@ footer .dot{background:var(--ivory)!important}
 </div>
 <button class="totop" id="totop" type="button" aria-label="Volver arriba"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16V4M4.5 9.5 10 4l5.5 5.5"/></svg></button>
 <script>
+/* ===== idioma ===== */
+let LANG='es';
+try{const sv=localStorage.getItem('lang');if(sv==='es'||sv==='en')LANG=sv}catch(e){}
+const UI={
+ es:{locale:'es-AR',mn:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],ms:['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'],dow:['L','M','M','J','V','S','D'],
+  lvl:i=>`Nivel ${i} de 5`,dur:'duración',ded:'dedicación',cont:'contenido',play:'Reproducir clip de',spots:'cupos',reserve:'Reservar',view:'Ver programa:',none:'Sin seminarios este mes.',
+  venue:'Sede',duration:'Duración',spotsL:'Cupos',places:'lugares',inc:'Incluye',sample:'Programa de ejemplo · a confirmar',note:'Horarios y contenidos sujetos a confirmación por la dirección del centro.',per:'por seminario',close:'Cerrar',book:'Reservar mi lugar',
+  err:'Completá tu nombre y un email válido.',thanks:n=>`Gracias, ${n}. (Demo: este formulario todavía no envía datos.)`,
+  opt:(m,d,y,t)=>`${d} ${m.toLowerCase()} ${y} · ${t}`,dayAria:(d,m,t)=>`${d} de ${m}: ${t}`,
+  title:'Centro de Enseñanza · Asociación Argentina de Polo',desc:'Centro de enseñanza de la Asociación Argentina de Polo: equipo, niveles, certificaciones, plataforma online y seminarios presenciales.'},
+ en:{locale:'en-US',mn:['January','February','March','April','May','June','July','August','September','October','November','December'],ms:['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'],dow:['M','T','W','T','F','S','S'],
+  lvl:i=>`Level ${i} of 5`,dur:'duration',ded:'commitment',cont:'content',play:'Play clip:',spots:'spots',reserve:'Reserve',view:'View program:',none:'No seminars this month.',
+  venue:'Venue',duration:'Duration',spotsL:'Spots',places:'places',inc:'Includes',sample:'Sample program · TBC',note:'Schedule and contents subject to confirmation by the center’s management.',per:'per seminar',close:'Close',book:'Reserve my spot',
+  err:'Please enter your name and a valid email.',thanks:n=>`Thank you, ${n}. (Demo: this form does not send data yet.)`,
+  opt:(m,d,y,t)=>`${m[0]+m.slice(1).toLowerCase()} ${d}, ${y} · ${t}`,dayAria:(d,m,t)=>`${m} ${d}: ${t}`,
+  title:'Polo Teaching Center · Argentine Polo Association',desc:'Polo teaching center of the Argentine Polo Association: team, levels, certifications, online platform and in-person seminars.'}
+};
+const U=()=>UI[LANG];
+
+/* traducciones del texto estático (clave = texto en español) */
+const EN={
+'Principal':'Main',
+'Centro de Enseñanza de Polo, avalado por la Asociación Argentina de Polo':'Polo Teaching Center, endorsed by the Argentine Polo Association',
+'Centro de Enseñanza de Polo — avalado por la Asociación Argentina de Polo':'Polo Teaching Center — endorsed by the Argentine Polo Association',
+'Idioma':'Language',
+'Equipo':'Team','Programa':'Program','Certificaciones':'Certifications','Seminarios':'Seminars','Inscribirme':'Sign up',
+'Inscripción 2027 abierta':'2027 enrollment open',
+'Aprender polo con quienes lo juegan al más alto nivel.':'Learn polo from those who play it at the highest level.',
+'El centro de enseñanza de la Asociación Argentina de Polo reúne método, caballos y entrenadores en un programa único: online a tu ritmo y en cancha, en seminarios presenciales.':'The teaching center of the Argentine Polo Association brings together method, horses and coaches in a single program: online at your own pace and on the field, in in-person seminars.',
+'Registrarme en la plataforma':'Join the platform','Ver calendario de seminarios':'See the seminar calendar',
+'niveles de aprendizaje':'learning levels','certificaciones oficiales':'official certifications','clases en video':'video lessons',
+'Un instructor enseñando a una jugadora a caballo en la cancha':'An instructor teaching a rider on horseback on the field',
+'AAP-01 · Método':'AAP-01 · Method','Del primer swing al primer chukker.':'From the first swing to the first chukker.',
+'Una iniciativa de':'An initiative of','Asociación Argentina de Polo':'Argentine Polo Association',
+'Dos directores, un cuerpo de ayudantes en cancha.':'Two directors and a team of assistants on the field.',
+'Cada alumno trabaja con un instructor principal y con ayudantes que acompañan el entrenamiento diario, el cuidado del caballo y la corrección técnica.':'Each student works with a lead instructor and with assistants who support daily training, horse care and technical correction.',
+'Director de educación del juego y de las reglas. Descubre y forma árbitros de polo y dirige el grupo de referees de la Asociación. [Trayectoria, años de experiencia y antecedentes — a completar.]':'Director of game and rules education. He discovers and trains polo umpires and leads the Association’s referee group. [Background, years of experience and track record — to be completed.]',
+'Reglamento':'Rules','Formación de árbitros':'Umpire training',
+'Conocido como “el Profesor del polo”. Veterinario (UBA) y jugador de hasta 5 goles de handicap, ganó la Copa República Argentina en 1968. Dedicó su carrera a estudiar y sistematizar la técnica del polo —más de 700 artículos y años de análisis de video— y dicta clases y clínicas a alumnos de 5 a más de 70 años. Hoy enseña en Houston, Estados Unidos.':'Known as “the Professor of Polo”. A veterinarian (University of Buenos Aires) and a player rated up to 5 goals, he won the Argentine Republic Cup in 1968. He has devoted his career to studying and systematizing polo technique — more than 700 articles and years of video analysis — and teaches classes and clinics to students from age 5 to over 70. He now teaches in Houston, United States.',
+'Técnica del polo':'Polo technique','Análisis de video':'Video analysis',
+'Asistentes':'Assistants','04 · lista ampliable':'04 · expandable list','FOTO':'PHOTO','[Nombre Apellido]':'[First Last]',
+'Ayudante · Iniciación':'Assistant · Initiation','Ayudante · Fundamentos':'Assistant · Fundamentals','Ayudante · Caballos':'Assistant · Horses','Ayudante · Reglamento':'Assistant · Rules',
+'Voces del polo':'Voices of polo','Lo que dice quien lo vive.':'What those who live it say.',
+'Jugadores y dirigentes que respaldan el método del centro.':'Players and officials who stand behind the center’s method.',
+'“Eduardo, conozco tu pasión por este deporte desde hace mucho, cuando jugabas con mi padre y yo recién empezaba a pegarle a la bocha. En estos años vi que tu método de enseñanza da resultados increíbles con jugadores y principiantes de todos los niveles. Por la didáctica de tu método y por cómo lo enseñás, estoy seguro de que sos el profesor de polo número 1. Te deseo el mayor de los éxitos.”':'“Eduardo, I know your passion for this sport since a long time ago, when you played with my father and I was just starting to stick and ball. During these past years, I realised how your teaching method have shown amazing result between players and beginners of all levels. Because of the didactic of your method and the way you teach it, I’m sure you are the number 1 polo teacher. I wish you the best of success.”',
+'Mejor jugador de polo del mundo · sobre Eduardo Amaya':'World Best Polo Player · on Eduardo Amaya',
+'“Eduardo es uno de los entrenadores de polo más codiciados del polo mundial. Su formación como cirujano veterinario y como jugador profesional vuelve científico su enfoque del polo. Su manera de comunicar los elementos de la equitación se apoya en su conocimiento de la mecánica y la constitución del caballo, y considera cada aspecto de su complejidad. Viaja parte del año como entrenador y vuelve a la Argentina para la temporada en septiembre, cuando se dedica a entrenar alumnos del exterior. Es instructor principal de la International Polo Academy y usa el análisis de Dartfish en sus clases.”':'“Eduardo is one of the most coveted polo coaches in world polo. His background as a veterinary surgeon as well as a professional player makes his approach to polo scientific. His communication of horsemanship elements in particular is based on his knowledge of the mechanics and makeup of the horse, taking every element of the horse’s complexities into consideration. Travelling for part of the year as a coach, Eduardo returns to Argentina for the season in September where he devotes his time to training students from abroad. Eduardo is the lead instructor at the International Polo Academy using Dartfish analytics in his teaching.”',
+'United States Polo Association · sobre Eduardo Amaya':'United States Polo Association · on Eduardo Amaya',
+'“Un alma inquieta, en busca del juego perfecto, del swing perfecto, de la monta perfecta, con ojo de águila y un programa de entrenamiento magnífico que se centra en la simplicidad y el progreso. Análisis agudo, práctica directa y sin vueltas para jugar mejor. El científico del polo. Professor Polo.”':'“A restless soul, in search of the perfect play, the perfect swing, the perfect riding, with an eagle eye and a magnificent training program that focuses on simplicity and progress. Sharp analysis, straight-forward, no b...shit practice, five better play. The polo scientist. Professor Polo.”',
+'Alemania · sobre Eduardo Amaya':'Germany · on Eduardo Amaya',
+'Cinco niveles, de la primera montada al juego de torneo.':'Five levels, from the first ride to tournament play.',
+'Cada nivel combina módulos online con práctica en cancha. Se avanza al siguiente al aprobar la evaluación del instructor.':'Each level combines online modules with practice on the field. You move up after passing the instructor’s assessment.',
+'Niveles':'Levels','Iniciación':'Initiation','Fundamentos':'Fundamentals','Juego':'Play','Competición':'Competition','Instructor':'Instructor',
+'Cuatro credenciales avaladas por la Asociación.':'Four credentials endorsed by the Association.',
+'Un clip corto muestra qué se evalúa en cada una. Tocá o pasá el cursor para verlo en movimiento.':'A short clip shows what is assessed in each one. Tap or hover to watch it in motion.',
+'Empezá ahora':'Start now','Dos formas de entrar al centro.':'Two ways into the center.',
+'Registrate en la plataforma para aprender a tu ritmo, o reservá tu lugar en un seminario presencial. También podés combinar ambas.':'Sign up on the platform to learn at your own pace, or reserve your spot at an in-person seminar. You can also combine both.',
+'Plataforma interactiva':'Interactive platform',
+'Clases en video por nivel, con ejercicios de seguimiento':'Video lessons by level, with follow-up exercises',
+'Análisis de tu golpe: subí un clip y recibí devolución':'Stroke analysis: upload a clip and get feedback',
+'Simulador de reglamento y evaluaciones por módulo':'Rules simulator and assessments for each module',
+'Acceso a las certificaciones teóricas':'Access to the theory certifications',
+'por mes':'per month','Crear mi cuenta':'Create my account',
+'Seminarios en persona':'In-person seminars',
+'Jornadas intensivas de 2 a 3 días en cancha':'Intensive 2 to 3-day sessions on the field',
+'Grupos reducidos con los directores y ayudantes':'Small groups with the directors and assistants',
+'Caballos provistos y equipamiento incluido':'Horses provided and equipment included',
+'Evaluación práctica para certificaciones':'Practical assessment for certifications',
+'por seminario':'per seminar','Ver fechas':'See dates',
+'Calendario':'Calendar','Próximos seminarios presenciales':'Upcoming in-person seminars',
+'Mes anterior':'Previous month','Mes siguiente':'Next month','Calendario mensual':'Monthly calendar',
+'Seminario':'Seminar','Cupos limitados · fechas de ejemplo':'Limited spots · sample dates',
+'Registro':'Sign-up','Reservá tu lugar.':'Reserve your spot.',
+'Dejanos tus datos y te escribimos con los próximos pasos. Sin costo hasta confirmar tu nivel inicial.':'Leave us your details and we will write to you with the next steps. No charge until your starting level is confirmed.',
+'Tipo de inscripción':'Enrollment type','Plataforma online':'Online platform','Seminario presencial':'In-person seminar',
+'Nombre':'First name','Apellido':'Last name','nombre@correo.com':'name@email.com',
+'Experiencia':'Experience','Nunca jugué':'Never played','Principiante':'Beginner','Intermedio':'Intermediate','Avanzado':'Advanced','País':'Country',
+'Enviar registro':'Submit',
+'Al enviar aceptás recibir comunicaciones del centro. Podés darte de baja cuando quieras.':'By submitting you agree to receive communications from the center. You can unsubscribe at any time.',
+'Preguntas':'Questions','Antes de empezar.':'Before you start.',
+'¿Necesito tener caballo propio?':'Do I need my own horse?','[Respuesta a definir: en los seminarios se proveen caballos y equipamiento.]':'[Answer to be defined: horses and equipment are provided at the seminars.]',
+'¿Desde qué edad se puede participar?':'From what age can I take part?','[Respuesta a definir: edades mínimas y programa juvenil.]':'[Answer to be defined: minimum ages and youth program.]',
+'¿Las certificaciones son oficiales?':'Are the certifications official?','[Respuesta a definir: validez y reconocimiento por la AAP.]':'[Answer to be defined: validity and recognition by the AAP.]',
+'¿Puedo empezar online y luego pasar a lo presencial?':'Can I start online and later move to in-person?','[Respuesta a definir: los niveles se acreditan en ambas modalidades.]':'[Answer to be defined: levels are credited in both formats.]',
+'Un programa de la Asociación Argentina de Polo.':'A program of the Argentine Polo Association.',
+'Centro':'Center','Inscripción':'Enrollment','Contacto':'Contact','[Teléfono]':'[Phone]','[Dirección]':'[Address]',
+'© 2026 Asociación Argentina de Polo':'© 2026 Argentine Polo Association','Borrador de diseño v0.1':'Design draft v0.1',
+'Cerrar':'Close','Volver arriba':'Back to top'
+};
+const SKIP='#panels,#certs,#grid,#events,#mlabel,#m-body,#m-foot,#sem-select';
+const tnodes=[],anodes=[];
+(function(){
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(n){
+    if(!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;
+    const p=n.parentElement;
+    if(!p||p.closest(SKIP)||['SCRIPT','STYLE'].includes(p.tagName)||p.closest('svg'))return NodeFilter.FILTER_REJECT;
+    return NodeFilter.FILTER_ACCEPT}});
+  let n;while((n=w.nextNode()))tnodes.push([n,n.nodeValue]);
+  document.querySelectorAll('[alt],[aria-label],[placeholder]').forEach(el=>{
+    if(el.closest('#panels,#certs,#grid,#events,#m-body,#m-foot'))return;
+    ['alt','aria-label','placeholder'].forEach(a=>{if(el.hasAttribute(a))anodes.push([el,a,el.getAttribute(a)])});
+  });
+})();
+function applyStatic(){
+  tnodes.forEach(([n,o])=>{const k=o.trim();n.nodeValue=(LANG==='en'&&EN[k]!==undefined)?o.replace(k,EN[k]):o});
+  anodes.forEach(([el,a,o])=>{el.setAttribute(a,(LANG==='en'&&EN[o]!==undefined)?EN[o]:o)});
+}
+
+/* ===== datos (es + en) ===== */
 const LEVELS=[
- {c:'N1',t:'Iniciación',d:'Primer contacto con el caballo, el taco y la cancha. Seguridad y fundamentos de equitación aplicada al polo.',w:'6 semanas',h:'3 h / semana',m:'12 módulos',p:20,l:['Postura y equilibrio a caballo','Agarre del taco y swing básico','Normas de seguridad','Cuidado y equipo del caballo','Golpe de derecha en parado','Reglas elementales']},
- {c:'N2',t:'Fundamentos',d:'Control del caballo al trote y al galope, golpes de derecha y revés, y lectura de la línea de la bocha.',w:'10 semanas',h:'4 h / semana',m:'18 módulos',p:40,l:['Galope controlado','Revés y golpes de precisión','La línea de la bocha','Frenos y giros','Práctica por parejas','Reglamento esencial']},
- {c:'N3',t:'Juego',d:'Ingreso al juego en equipo: posiciones, marcación, pases y primeras prácticas con chukkers cortos.',w:'12 semanas',h:'5 h / semana',m:'22 módulos',p:60,l:['Posiciones 1 a 4','Marcación y ride-off','Pases y combinaciones','Chukkers de práctica','Interpretación de faltas','Táctica básica']},
- {c:'N4',t:'Competición',d:'Preparación para torneos: ritmo de juego, manejo de varios caballos y análisis de partidos en video.',w:'16 semanas',h:'6 h / semana',m:'26 módulos',p:80,l:['Ritmo y estrategia','Manejo de caballada','Análisis de video','Preparación física','Psicología de competencia','Árbitros y reglamento avanzado']},
- {c:'N5',t:'Instructor',d:'Formación de nuevos instructores: metodología, progresiones, evaluación y seguridad en la enseñanza.',w:'20 semanas',h:'6 h / semana',m:'30 módulos',p:100,l:['Metodología de enseñanza','Diseño de clases','Evaluación por niveles','Primeros auxilios','Gestión de grupos','Práctica tutelada']}
+ {c:'N1',t:'Iniciación',d:'Primer contacto con el caballo, el taco y la cancha. Seguridad y fundamentos de equitación aplicada al polo.',w:'6 semanas',h:'3 h / semana',m:'12 módulos',p:20,l:['Postura y equilibrio a caballo','Agarre del taco y swing básico','Normas de seguridad','Cuidado y equipo del caballo','Golpe de derecha en parado','Reglas elementales'],
+  en:{t:'Initiation',d:'First contact with the horse, the mallet and the field. Safety and the fundamentals of riding applied to polo.',w:'6 weeks',h:'3 h / week',m:'12 modules',l:['Posture and balance on horseback','Mallet grip and basic swing','Safety rules','Horse care and tack','Forehand stroke from a standstill','Basic rules']}},
+ {c:'N2',t:'Fundamentos',d:'Control del caballo al trote y al galope, golpes de derecha y revés, y lectura de la línea de la bocha.',w:'10 semanas',h:'4 h / semana',m:'18 módulos',p:40,l:['Galope controlado','Revés y golpes de precisión','La línea de la bocha','Frenos y giros','Práctica por parejas','Reglamento esencial'],
+  en:{t:'Fundamentals',d:'Horse control at the trot and canter, forehand and backhand strokes, and reading the line of the ball.',w:'10 weeks',h:'4 h / week',m:'18 modules',l:['Controlled canter','Backhand and accuracy strokes','The line of the ball','Stops and turns','Practice in pairs','Essential rules']}},
+ {c:'N3',t:'Juego',d:'Ingreso al juego en equipo: posiciones, marcación, pases y primeras prácticas con chukkers cortos.',w:'12 semanas',h:'5 h / semana',m:'22 módulos',p:60,l:['Posiciones 1 a 4','Marcación y ride-off','Pases y combinaciones','Chukkers de práctica','Interpretación de faltas','Táctica básica'],
+  en:{t:'Play',d:'Entry into team play: positions, marking, passes and first practice with short chukkers.',w:'12 weeks',h:'5 h / week',m:'22 modules',l:['Positions 1 to 4','Marking and ride-off','Passes and combinations','Practice chukkers','Understanding fouls','Basic tactics']}},
+ {c:'N4',t:'Competición',d:'Preparación para torneos: ritmo de juego, manejo de varios caballos y análisis de partidos en video.',w:'16 semanas',h:'6 h / semana',m:'26 módulos',p:80,l:['Ritmo y estrategia','Manejo de caballada','Análisis de video','Preparación física','Psicología de competencia','Árbitros y reglamento avanzado'],
+  en:{t:'Competition',d:'Tournament preparation: pace of play, managing several horses and video analysis of matches.',w:'16 weeks',h:'6 h / week',m:'26 modules',l:['Pace and strategy','String management','Video analysis','Physical preparation','Competition psychology','Umpires and advanced rules']}},
+ {c:'N5',t:'Instructor',d:'Formación de nuevos instructores: metodología, progresiones, evaluación y seguridad en la enseñanza.',w:'20 semanas',h:'6 h / semana',m:'30 módulos',p:100,l:['Metodología de enseñanza','Diseño de clases','Evaluación por niveles','Primeros auxilios','Gestión de grupos','Práctica tutelada'],
+  en:{t:'Instructor',d:'Training new instructors: methodology, progressions, assessment and safety in teaching.',w:'20 weeks',h:'6 h / week',m:'30 modules',l:['Teaching methodology','Lesson design','Assessment by level','First aid','Group management','Supervised practice']}}
 ];
+const lv=v=>LANG==='en'?Object.assign({},v,v.en):v;
+let shown=0,target=0,busyL=false;
 const panels=document.getElementById('panels');
-panels.innerHTML=LEVELS.map((v,i)=>`
-<div class="panel ${i?'':'on'}" role="tabpanel" data-i="${i}">
+let panelEls=[];
+function renderPanels(){
+  panels.innerHTML=LEVELS.map((v0,i)=>{const v=lv(v0);return `
+<div class="panel ${i===shown?'on':''}" role="tabpanel" data-i="${i}">
   <div class="bar" aria-hidden="true"><i style="width:${v.p}%"></i></div>
-  <div style="display:flex;justify-content:space-between;align-items:center;gap:16px"><span class="pill pill-out mono">${v.c}</span><span class="cap muted mono">Nivel ${i+1} de 5</span></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:16px"><span class="pill pill-out mono">${v.c}</span><span class="cap muted mono">${U().lvl(i+1)}</span></div>
   <div><h3 class="h-lg">${v.t}</h3><p class="body muted" style="margin-top:12px;max-width:560px">${v.d}</p></div>
   <ul>${v.l.map(x=>`<li>${x}</li>`).join('')}</ul>
-  <div class="meta"><div><b>${v.w}</b>duración</div><div><b>${v.h}</b>dedicación</div><div><b>${v.m}</b>contenido</div></div>
-</div>`).join('');
+  <div class="meta"><div><b>${v.w}</b>${U().dur}</div><div><b>${v.h}</b>${U().ded}</div><div><b>${v.m}</b>${U().cont}</div></div>
+</div>`}).join('');
+  panelEls=[...panels.querySelectorAll('.panel')];
+}
 function centerStep(el){
   const box=el.parentElement;
   if(box.scrollWidth<=box.clientWidth)return;
   const r=el.getBoundingClientRect(),c=box.getBoundingClientRect();
   box.scrollBy({left:r.left-c.left,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
 }
-const steps=[...document.querySelectorAll('.step')],panelEls=[...document.querySelectorAll('.panel')];
-let shown=0,target=0,busyL=false;
+const steps=[...document.querySelectorAll('.step')];
 const reduceL=matchMedia('(prefers-reduced-motion:reduce)').matches;
 async function goLevel(i){
   target=i;
@@ -924,47 +1050,47 @@ steps.forEach((b,k)=>b.addEventListener('click',()=>goLevel(k)));
 
 const play='<svg viewBox="0 0 14 14" fill="currentColor"><path d="M2 1l11 6-11 6z"/></svg>';
 const CERTS=[
- {c:'CERT-01',t:'Jugador Iniciado',d:'Equitación básica, golpe de derecha y reglas elementales.',s:'video/cert-01.mp4',svg:'<path d="M20 110 L110 20" /><circle cx="130" cy="110" r="10"/>'},
- {c:'CERT-02',t:'Jugador Habilitado',d:'Juego en equipo, marcación y posiciones, apto para torneos de club.',s:'video/cert-02.mp4',svg:'<path d="M20 100 C60 20, 110 20, 140 90"/><circle cx="140" cy="90" r="10"/><path d="M20 110 H150"/>'},
- {c:'CERT-03',t:'Instructor',d:'Metodología de enseñanza, progresiones y seguridad.',s:'video/cert-03.mp4',svg:'<circle cx="75" cy="45" r="22"/><path d="M30 120 c0-30 20-42 45-42 s45 12 45 42"/>'},
- {c:'CERT-04',t:'Árbitro / Umpire',d:'Reglamento, criterio de faltas y manejo del partido.',s:'video/cert-04.mp4',svg:'<path d="M30 110 V30 L120 50 L30 70"/>'}
+ {c:'CERT-01',t:'Jugador Iniciado',d:'Equitación básica, golpe de derecha y reglas elementales.',s:'video/cert-01.mp4',en:{t:'Beginner Player',d:'Basic riding, forehand stroke and elementary rules.'}},
+ {c:'CERT-02',t:'Jugador Habilitado',d:'Juego en equipo, marcación y posiciones, apto para torneos de club.',s:'video/cert-02.mp4',en:{t:'Qualified Player',d:'Team play, marking and positions; cleared for club tournaments.'}},
+ {c:'CERT-03',t:'Instructor',d:'Metodología de enseñanza, progresiones y seguridad.',s:'video/cert-03.mp4',en:{t:'Instructor',d:'Teaching methodology, progressions and safety.'}},
+ {c:'CERT-04',t:'Árbitro / Umpire',d:'Reglamento, criterio de faltas y manejo del partido.',s:'video/cert-04.mp4',en:{t:'Umpire',d:'Rules, judging fouls and managing the match.'}}
 ];
-document.getElementById('certs').innerHTML=CERTS.map(c=>`
+function renderCerts(){
+  document.getElementById('certs').innerHTML=CERTS.map(c0=>{const c=LANG==='en'?Object.assign({},c0,c0.en):c0;return `
 <article class="cert">
-  <button class="vid" aria-label="Reproducir clip de ${c.t}">
-    ${c.s?`<video muted loop playsinline preload="metadata" src="${c.s}#t=1.1"></video>`:''}
+  <button class="vid" aria-label="${U().play} ${c.t}">
+    <video muted loop playsinline preload="metadata" src="${c.s}#t=1.1"></video>
     <span class="ph"><span class="pill tag-t mono" style="align-self:flex-start">${c.c}</span>
-    ${c.s?'<span></span><span></span>':`<svg viewBox="0 0 160 130" fill="none" stroke="#fcfcf7" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">${c.svg}</svg>
-    <span class="mono cap">Clip 10 s · pendiente</span>`}</span>
+    <span></span><span></span></span>
     <span class="play">${play}</span>
   </button>
   <h3>${c.t}</h3><p>${c.d}</p>
-</article>`).join('');
-document.querySelectorAll('.vid').forEach(b=>{
-  const v=b.querySelector('video');if(!v)return;
-  const on=()=>{const p=v.play();if(p)p.catch(()=>{});b.classList.add('playing')},off=()=>{v.pause();v.currentTime=1.1;b.classList.remove('playing')};
-  b.addEventListener('mouseenter',on);b.addEventListener('mouseleave',off);
-  b.addEventListener('click',()=>v.paused?on():off());
-});
+</article>`}).join('');
+  document.querySelectorAll('.vid').forEach(b=>{
+    const v=b.querySelector('video');if(!v)return;
+    const on=()=>{const p=v.play();if(p)p.catch(()=>{});b.classList.add('playing')},off=()=>{v.pause();v.currentTime=1.1;b.classList.remove('playing')};
+    b.addEventListener('mouseenter',on);b.addEventListener('mouseleave',off);
+    b.addEventListener('click',()=>v.paused?on():off());
+  });
+}
 
 /* seminarios (fechas de ejemplo) */
 const SEMS=[
- {d:'2026-11-14',t:'Iniciación intensiva',n:'N1',p:'Sede a confirmar · Buenos Aires',s:12},
- {d:'2026-11-28',t:'Golpes y precisión',n:'N2',p:'Sede a confirmar · Pilar',s:8},
- {d:'2026-12-12',t:'Juego en equipo',n:'N3',p:'Sede a confirmar · Open Door',s:10},
- {d:'2026-12-19',t:'Taller de reglamento y árbitros',n:'CERT-04',p:'Sede a confirmar · AAP',s:20},
- {d:'2027-01-16',t:'Preparación de competición',n:'N4',p:'Sede a confirmar · Cañuelas',s:6},
- {d:'2027-01-30',t:'Formación de instructores',n:'N5',p:'Sede a confirmar · Buenos Aires',s:8}
+ {d:'2026-11-14',t:'Iniciación intensiva',n:'N1',p:'Sede a confirmar · Buenos Aires',s:12,en:{t:'Intensive initiation',p:'Venue TBC · Buenos Aires'}},
+ {d:'2026-11-28',t:'Golpes y precisión',n:'N2',p:'Sede a confirmar · Pilar',s:8,en:{t:'Strokes and accuracy',p:'Venue TBC · Pilar'}},
+ {d:'2026-12-12',t:'Juego en equipo',n:'N3',p:'Sede a confirmar · Open Door',s:10,en:{t:'Team play',p:'Venue TBC · Open Door'}},
+ {d:'2026-12-19',t:'Taller de reglamento y árbitros',n:'CERT-04',p:'Sede a confirmar · AAP',s:20,en:{t:'Rules and umpires workshop',p:'Venue TBC · AAP'}},
+ {d:'2027-01-16',t:'Preparación de competición',n:'N4',p:'Sede a confirmar · Cañuelas',s:6,en:{t:'Competition preparation',p:'Venue TBC · Cañuelas'}},
+ {d:'2027-01-30',t:'Formación de instructores',n:'N5',p:'Sede a confirmar · Buenos Aires',s:8,en:{t:'Instructor training',p:'Venue TBC · Buenos Aires'}}
 ];
-const MN=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-const MS=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+const sm=s=>LANG==='en'?Object.assign({},s,s.en):s;
 const keyOf=d=>d.slice(0,7);
 const months=[...new Set(SEMS.map(s=>keyOf(s.d)))];
 let curM=months[0],selD=null;
 const lEl=document.getElementById('mlabel'),pBtn=document.getElementById('mprev'),nBtn=document.getElementById('mnext'),gEl=document.getElementById('grid'),eEl=document.getElementById('events');
 function renderMonths(){
-  const [y,m]=curM.split('-'),i=months.indexOf(curM);
-  lEl.textContent=MN[+m-1][0].toUpperCase()+MN[+m-1].slice(1)+' '+y;
+  const [y,m]=curM.split('-'),i=months.indexOf(curM),mn=U().mn[+m-1];
+  lEl.textContent=mn[0].toUpperCase()+mn.slice(1)+' '+y;
   pBtn.disabled=i<=0;nBtn.disabled=i>=months.length-1;
 }
 let busy=false;
@@ -995,33 +1121,36 @@ function renderGrid(){
   const [y,m]=curM.split('-').map(Number);
   const first=new Date(y,m-1,1),days=new Date(y,m,0).getDate();
   const off=(first.getDay()+6)%7;
-  let h=['L','M','M','J','V','S','D'].map(x=>`<div class="dow">${x}</div>`).join('');
+  let h=U().dow.map(x=>`<div class="dow">${x}</div>`).join('');
   for(let i=0;i<off;i++)h+='<div></div>';
   for(let d=1;d<=days;d++){
     const iso=`${curM}-${String(d).padStart(2,'0')}`;
     const ev=SEMS.find(s=>s.d===iso);
-    h+=ev?`<button class="day has ${selD===iso?'sel':''}" data-d="${iso}" aria-label="${d} de ${MN[m-1]}: ${ev.t}">${d}</button>`:`<div class="day">${d}</div>`;
+    h+=ev?`<button class="day has ${selD===iso?'sel':''}" data-d="${iso}" aria-label="${U().dayAria(d,U().mn[m-1],sm(ev).t)}">${d}</button>`:`<div class="day">${d}</div>`;
   }
   gEl.innerHTML=h;
   gEl.querySelectorAll('.has').forEach(b=>b.onclick=()=>{selD=selD===b.dataset.d?null:b.dataset.d;render()});
 }
 function renderEvents(){
   const list=SEMS.filter(s=>keyOf(s.d)===curM);
-  eEl.innerHTML=list.length?list.map(s=>{const [,m,d]=s.d.split('-');return `
-  <div class="ev ${selD===s.d?'sel':''}" role="button" tabindex="0" data-sd="${s.d}" aria-label="Ver programa: ${s.t}">
-    <div class="date"><b>${+d}</b><span>${MS[+m-1]}</span></div>
+  eEl.innerHTML=list.length?list.map(s0=>{const s=sm(s0);const [,m,d]=s.d.split('-');return `
+  <div class="ev ${selD===s.d?'sel':''}" role="button" tabindex="0" data-sd="${s.d}" aria-label="${U().view} ${s.t}">
+    <div class="date"><b>${+d}</b><span>${U().ms[+m-1]}</span></div>
     <div><h4>${s.t}</h4><div class="cap">${s.p}</div></div>
-    <div class="rt"><span class="pill ${s.s<=8?'pill-lime':'pill-out'}">${s.s} cupos</span><a class="link cap" href="#registro" data-sem="${s.d}">Reservar</a></div>
-  </div>`}).join(''):'<p class="empty">Sin seminarios este mes.</p>';
+    <div class="rt"><span class="pill ${s.s<=8?'pill-lime':'pill-out'}">${s.s} ${U().spots}</span><a class="link cap" href="#registro" data-sem="${s.d}">${U().reserve}</a></div>
+  </div>`}).join(''):`<p class="empty">${U().none}</p>`;
   eEl.querySelectorAll('.ev').forEach(c=>{c.addEventListener('click',()=>openModal(c.dataset.sd));c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(c.dataset.sd)}})});
   eEl.querySelectorAll('[data-sem]').forEach(a=>a.addEventListener('click',(e)=>{e.stopPropagation();setMode('presencial');document.getElementById('sem-select').value=a.dataset.sem}));
 }
 function render(){renderMonths();renderGrid();renderEvents()}
-render();
 
 /* formulario */
 const semSel=document.getElementById('sem-select');
-semSel.innerHTML=SEMS.map(s=>{const [y,m,d]=s.d.split('-');return `<option value="${s.d}">${+d} ${MS[+m-1].toLowerCase()} ${y} · ${s.t}</option>`}).join('');
+function renderSemSelect(){
+  const cur=semSel.value;
+  semSel.innerHTML=SEMS.map(s0=>{const s=sm(s0);const [y,m,d]=s.d.split('-');return `<option value="${s.d}">${U().opt(U().ms[+m-1],+d,y,s.t)}</option>`}).join('');
+  if(cur)semSel.value=cur;
+}
 function setMode(m){
   document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===m));
   document.getElementById('sem-label').style.display=m==='presencial'?'grid':'none';
@@ -1032,49 +1161,58 @@ document.querySelectorAll('[data-mode]').forEach(a=>{if(a.tagName==='A')a.addEve
 document.getElementById('form').addEventListener('submit',e=>{
   e.preventDefault();
   const f=e.target,ok=document.getElementById('ok');
-  if(!f.nombre.value.trim()||!f.email.validity.valid||!f.email.value){ok.className='ok on';ok.textContent='Completá tu nombre y un email válido.';return}
+  if(!f.nombre.value.trim()||!f.email.validity.valid||!f.email.value){ok.className='ok on';ok.textContent=U().err;return}
   ok.className='ok on';
-  ok.textContent=`Gracias, ${f.nombre.value.trim()}. (Demo: este formulario todavía no envía datos.)`;
+  ok.textContent=U().thanks(f.nombre.value.trim());
 });
 const totop=document.getElementById('totop');
 const onScroll=()=>totop.classList.toggle('show',scrollY>40);
 addEventListener('scroll',onScroll,{passive:true});onScroll();
 totop.addEventListener('click',()=>scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'}));
+
 /* modal de programa */
 const PROG={
- 'N1':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Material del nivel 1'],days:[['Jornada única',[['09:00','Recepción y presentación del grupo'],['09:30','Seguridad y conocimiento del caballo'],['10:30','Postura y equilibrio a caballo'],['12:30','Almuerzo'],['14:00','Agarre del taco y primeros golpes'],['16:00','Evaluación y devolución individual']]]]},
- 'N2':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Análisis de video de tu golpe'],days:[['Jornada única',[['09:00','Diagnóstico técnico individual'],['10:00','Galope controlado y giros'],['11:30','Derecha y revés: precisión'],['13:00','Almuerzo'],['14:30','La línea de la bocha'],['16:00','Revisión en video y plan de práctica']]]]},
- 'N3':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Chukkers de práctica'],days:[['Jornada única',[['09:00','Posiciones 1 a 4'],['10:30','Marcación y ride-off'],['12:00','Pases y combinaciones'],['13:00','Almuerzo'],['14:30','Chukkers de práctica con árbitro'],['16:30','Devolución del partido']]]]},
- 'N4':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Análisis de video de partidos'],days:[['Jornada única',[['09:00','Ritmo de juego y estrategia'],['10:30','Manejo de caballada'],['12:00','Preparación física y mental'],['13:00','Almuerzo'],['14:30','Partido simulado'],['16:30','Análisis de video y plan de competición']]]]},
- 'N5':{dur:'1 jornada · 9 a 17 h',inc:['Material del curso','Almuerzo','Práctica tutelada'],days:[['Jornada única',[['09:00','Metodología de enseñanza'],['10:30','Diseño y secuencia de clases'],['12:00','Seguridad y primeros auxilios'],['13:00','Almuerzo'],['14:30','Práctica tutelada con alumnos'],['16:30','Evaluación del instructor']]]]},
- 'CERT-04':{dur:'1 jornada · 9 a 17 h',inc:['Material del taller','Almuerzo','Examen práctico'],days:[['Jornada única',[['09:00','Reglamento: lo esencial'],['10:30','Criterio de faltas'],['12:00','Posicionamiento del árbitro'],['13:00','Almuerzo'],['14:30','Arbitraje de un partido en vivo'],['16:30','Examen y devolución']]]]}
+ 'N1':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Material del nivel 1'],days:[['Jornada única',[['09:00','Recepción y presentación del grupo'],['09:30','Seguridad y conocimiento del caballo'],['10:30','Postura y equilibrio a caballo'],['12:30','Almuerzo'],['14:00','Agarre del taco y primeros golpes'],['16:00','Evaluación y devolución individual']]]],
+  en:{dur:'1 day · 9 am to 5 pm',inc:['Horses and equipment','Lunch','Level 1 materials'],days:[['Single day',[['09:00','Welcome and group introductions'],['09:30','Safety and getting to know the horse'],['10:30','Posture and balance on horseback'],['12:30','Lunch'],['14:00','Mallet grip and first strokes'],['16:00','Assessment and individual feedback']]]]}},
+ 'N2':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Análisis de video de tu golpe'],days:[['Jornada única',[['09:00','Diagnóstico técnico individual'],['10:00','Galope controlado y giros'],['11:30','Derecha y revés: precisión'],['13:00','Almuerzo'],['14:30','La línea de la bocha'],['16:00','Revisión en video y plan de práctica']]]],
+  en:{dur:'1 day · 9 am to 5 pm',inc:['Horses and equipment','Lunch','Video analysis of your stroke'],days:[['Single day',[['09:00','Individual technical assessment'],['10:00','Controlled canter and turns'],['11:30','Forehand and backhand: accuracy'],['13:00','Lunch'],['14:30','The line of the ball'],['16:00','Video review and practice plan']]]]}},
+ 'N3':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Chukkers de práctica'],days:[['Jornada única',[['09:00','Posiciones 1 a 4'],['10:30','Marcación y ride-off'],['12:00','Pases y combinaciones'],['13:00','Almuerzo'],['14:30','Chukkers de práctica con árbitro'],['16:30','Devolución del partido']]]],
+  en:{dur:'1 day · 9 am to 5 pm',inc:['Horses and equipment','Lunch','Practice chukkers'],days:[['Single day',[['09:00','Positions 1 to 4'],['10:30','Marking and ride-off'],['12:00','Passes and combinations'],['13:00','Lunch'],['14:30','Practice chukkers with an umpire'],['16:30','Match feedback']]]]}},
+ 'N4':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Análisis de video de partidos'],days:[['Jornada única',[['09:00','Ritmo de juego y estrategia'],['10:30','Manejo de caballada'],['12:00','Preparación física y mental'],['13:00','Almuerzo'],['14:30','Partido simulado'],['16:30','Análisis de video y plan de competición']]]],
+  en:{dur:'1 day · 9 am to 5 pm',inc:['Horses and equipment','Lunch','Video analysis of matches'],days:[['Single day',[['09:00','Pace of play and strategy'],['10:30','String management'],['12:00','Physical and mental preparation'],['13:00','Lunch'],['14:30','Practice match'],['16:30','Video analysis and competition plan']]]]}},
+ 'N5':{dur:'1 jornada · 9 a 17 h',inc:['Material del curso','Almuerzo','Práctica tutelada'],days:[['Jornada única',[['09:00','Metodología de enseñanza'],['10:30','Diseño y secuencia de clases'],['12:00','Seguridad y primeros auxilios'],['13:00','Almuerzo'],['14:30','Práctica tutelada con alumnos'],['16:30','Evaluación del instructor']]]],
+  en:{dur:'1 day · 9 am to 5 pm',inc:['Course materials','Lunch','Supervised practice'],days:[['Single day',[['09:00','Teaching methodology'],['10:30','Lesson design and sequencing'],['12:00','Safety and first aid'],['13:00','Lunch'],['14:30','Supervised practice with students'],['16:30','Instructor assessment']]]]}},
+ 'CERT-04':{dur:'1 jornada · 9 a 17 h',inc:['Material del taller','Almuerzo','Examen práctico'],days:[['Jornada única',[['09:00','Reglamento: lo esencial'],['10:30','Criterio de faltas'],['12:00','Posicionamiento del árbitro'],['13:00','Almuerzo'],['14:30','Arbitraje de un partido en vivo'],['16:30','Examen y devolución']]]],
+  en:{dur:'1 day · 9 am to 5 pm',inc:['Workshop materials','Lunch','Practical exam'],days:[['Single day',[['09:00','The rules: essentials'],['10:30','Judging fouls'],['12:00','Umpire positioning'],['13:00','Lunch'],['14:30','Umpiring a live match'],['16:30','Exam and feedback']]]]}}
 };
 const modal=document.getElementById('modal'),mBody=document.getElementById('m-body'),mFoot=document.getElementById('m-foot');
 let lastFocus=null,curSem=null;
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function openModal(iso){
-  const s=SEMS.find(x=>x.d===iso);if(!s)return;
-  curSem=s;const p=PROG[s.n]||PROG.N1;
+function openModal(iso,refresh){
+  const s0=SEMS.find(x=>x.d===iso);if(!s0)return;
+  const s=sm(s0);
+  curSem=s0;const p0=PROG[s.n]||PROG.N1,p=LANG==='en'?p0.en:p0;
   const [y,m,d]=s.d.split('-').map(Number);
-  const fecha=new Date(y,m-1,d).toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const fecha=new Date(y,m-1,d).toLocaleDateString(U().locale,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   mBody.innerHTML=`
   <header class="m-head">
-    <div class="tags"><span class="pill pill-lime">${esc(s.n)}</span><span class="pill pill-out">Programa de ejemplo · a confirmar</span></div>
+    <div class="tags"><span class="pill pill-lime">${esc(s.n)}</span><span class="pill pill-out">${U().sample}</span></div>
     <h2 class="h-lg" id="m-title">${esc(s.t)}</h2>
     <p class="body muted">${fecha[0].toUpperCase()+fecha.slice(1)}</p>
   </header>
   <div class="m-grid">
     <dl class="m-facts">
-      <div><dt>Sede</dt><dd>${esc(s.p)}</dd></div>
-      <div><dt>Duración</dt><dd>${esc(p.dur)}</dd></div>
-      <div><dt>Cupos</dt><dd>${s.s} lugares</dd></div>
-      <div><dt>Incluye</dt><dd><ul>${p.inc.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></dd></div>
+      <div><dt>${U().venue}</dt><dd>${esc(s.p)}</dd></div>
+      <div><dt>${U().duration}</dt><dd>${esc(p.dur)}</dd></div>
+      <div><dt>${U().spotsL}</dt><dd>${s.s} ${U().places}</dd></div>
+      <div><dt>${U().inc}</dt><dd><ul>${p.inc.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></dd></div>
     </dl>
     <div>${p.days.map(([t,items])=>`<section class="m-day" style="padding:0"><h3>${esc(t)}</h3><ol>${items.map(([h,x])=>`<li><time>${h}</time><span>${esc(x)}</span></li>`).join('')}</ol></section>`).join('')}
-      <p class="m-note">Horarios y contenidos sujetos a confirmación por la dirección del centro.</p></div>
+      <p class="m-note">${U().note}</p></div>
   </div>`;
-  mFoot.innerHTML=`<div class="price"><b>USD 250</b><span class="cap muted">por seminario · ${s.s} cupos</span></div>
-  <div class="acts"><button class="btn btn-inv" type="button" data-close>Cerrar</button><a class="btn btn-fill" href="#registro" id="m-reserve">Reservar mi lugar</a></div>`;
+  mFoot.innerHTML=`<div class="price"><b>USD 250</b><span class="cap muted">${U().per} · ${s.s} ${U().spots}</span></div>
+  <div class="acts"><button class="btn btn-inv" type="button" data-close>${U().close}</button><a class="btn btn-fill" href="#registro" id="m-reserve">${U().book}</a></div>`;
+  if(refresh)return;
   lastFocus=document.activeElement;
   modal.classList.add('open');modal.setAttribute('aria-hidden','false');
   document.body.style.overflow='hidden';
@@ -1101,6 +1239,21 @@ document.addEventListener('keydown',e=>{
     else if(!e.shiftKey&&document.activeElement===b){e.preventDefault();a.focus()}
   }
 });
+
+/* selector de idioma */
+function setLang(l,save){
+  LANG=l;
+  if(save){try{localStorage.setItem('lang',l)}catch(e){}}
+  document.documentElement.lang=l;
+  document.title=U().title;
+  const md=document.querySelector('meta[name=description]');if(md)md.setAttribute('content',U().desc);
+  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===l));
+  applyStatic();renderPanels();renderCerts();renderSemSelect();render();
+  if(modal.classList.contains('open')&&curSem)openModal(curSem.d,true);
+  const ok=document.getElementById('ok');if(ok)ok.className='ok';
+}
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang,true)));
+setLang(LANG,false);
 </script>
 </body>
 </html>
