@@ -74,6 +74,18 @@ nav .wrap{height:96px!important}
 .logos{gap:32px;align-items:center}
 .logos span{display:grid;place-items:center}
 .logos img{height:72px;width:auto;filter:brightness(0) invert(1)}
+@media (max-width:560px){.endorse{padding:24px 0}.endorse .wrap{gap:16px 24px;flex-wrap:wrap}.endorse .label{flex:0 0 100%;text-align:center}.endorse img{height:64px;max-width:38vw;object-fit:contain}.endorse .sep{height:44px}}
+@media (max-width:560px){
+  #equipo .assist{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;margin:0 calc(-1*var(--gutter));padding:0 var(--gutter);scroll-padding:0 var(--gutter);scrollbar-width:none;overscroll-behavior-x:contain}
+  #equipo .assist::-webkit-scrollbar{display:none}
+  #equipo .assist .ay{flex:0 0 72%;scroll-snap-align:start}
+}
+@media (max-width:980px){.steps{scrollbar-width:none;scroll-snap-type:x proximity}.steps::-webkit-scrollbar{display:none}.steps::after{content:"";flex:0 0 60%}.step{scroll-snap-align:start}}
+@media (max-width:560px){
+  #certificaciones .certs{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;margin:0 calc(-1*var(--gutter));padding:0 var(--gutter);scroll-padding:0 var(--gutter);scrollbar-width:none;overscroll-behavior-x:contain}
+  #certificaciones .certs::-webkit-scrollbar{display:none}
+  #certificaciones .certs .cert{flex:0 0 76%;scroll-snap-align:start}
+}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--forest)}
 .brand small{font-size:12px;font-weight:400;color:var(--pewter);letter-spacing:0;margin-left:4px}
 .links{display:flex;gap:28px;font-size:14px}
@@ -287,7 +299,7 @@ footer a:hover{text-decoration:underline}
   .links{display:none}
   .hero .wrap,.head,.prog,.cal,.form-wrap,.paths,.quotes,.quotes.two,.team-main{grid-template-columns:1fr}
   .head{gap:24px;margin-bottom:40px}.head p{justify-self:start}
-  .hero{padding:32px 0 64px}.hero .wrap{gap:40px}
+  .hero{padding:24px 0 32px}.hero .wrap{gap:40px}
   .assist,.certs{grid-template-columns:1fr 1fr}
   .steps{position:static;flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:4px}
   .step{width:auto;flex:none}.step b{font-size:16px}
@@ -434,8 +446,6 @@ footer h5{font-weight:500;letter-spacing:0;text-transform:none;font-size:13px}
 </head>
 <body>
 
-<div class="promo">Borrador de diseño · contenidos, nombres, citas y fechas son marcadores a confirmar</div>
-
 <nav aria-label="Principal">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Centro de Enseñanza de Polo, avalado por la Asociación Argentina de Polo"><img src="img/logo-centro-horizontal.png" alt="Centro de Enseñanza de Polo — avalado por la Asociación Argentina de Polo" class="brand-logo"></a>
@@ -503,7 +513,6 @@ footer h5{font-weight:500;letter-spacing:0;text-transform:none;font-size:13px}
       <article class="person" style="background:var(--snow)">
         <div class="photo tall"><img src="img/guillermo-villanueva.webp" alt="Guillermo Villanueva" style="object-position:50% 20%"></div>
         <div class="info">
-          <div><span class="pill pill-out mono">DIR-01</span></div>
           <h3 class="sub">Guillermo Villanueva</h3>
           <p class="muted">Director de educación del juego y de las reglas. Descubre y forma árbitros de polo y dirige el grupo de referees de la Asociación. [Trayectoria, años de experiencia y antecedentes — a completar.]</p>
           <div class="chips"><span class="pill pill-lime">Reglamento</span><span class="pill pill-out">Formación de árbitros</span></div>
@@ -512,7 +521,6 @@ footer h5{font-weight:500;letter-spacing:0;text-transform:none;font-size:13px}
       <article class="person" style="background:var(--snow)">
         <div class="photo tall"><img src="img/eduardo-amaya.webp" alt="Eduardo Amaya" style="object-position:50% 20%"></div>
         <div class="info">
-          <div><span class="pill pill-out mono">DIR-02</span></div>
           <h3 class="sub">Eduardo Amaya</h3>
           <p class="muted">Conocido como “el Profesor del polo”. Veterinario (UBA) y jugador de hasta 5 goles de handicap, ganó la Copa República Argentina en 1968. Dedicó su carrera a estudiar y sistematizar la técnica del polo —más de 700 artículos y años de análisis de video— y dicta clases y clínicas a alumnos de 5 a más de 70 años. Hoy enseña en Houston, Estados Unidos.</p>
           <div class="chips"><span class="pill pill-lime">Técnica del polo</span><span class="pill pill-out">Análisis de video</span></div>
@@ -521,7 +529,7 @@ footer h5{font-weight:500;letter-spacing:0;text-transform:none;font-size:13px}
     </div>
 
     <div class="assist-title">
-      <h3 class="sub">Ayudantes de cancha</h3>
+      <h3 class="sub">Asistentes</h3>
       <span class="cap muted mono">04 · lista ampliable</span>
     </div>
     <div class="assist">
@@ -750,6 +758,12 @@ panels.innerHTML=LEVELS.map((v,i)=>`
   <ul>${v.l.map(x=>`<li>${x}</li>`).join('')}</ul>
   <div class="meta"><div><b>${v.w}</b>duración</div><div><b>${v.h}</b>dedicación</div><div><b>${v.m}</b>contenido</div></div>
 </div>`).join('');
+function centerStep(el){
+  const box=el.parentElement;
+  if(box.scrollWidth<=box.clientWidth)return;
+  const r=el.getBoundingClientRect(),c=box.getBoundingClientRect();
+  box.scrollBy({left:r.left-c.left,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
+}
 const steps=[...document.querySelectorAll('.step')],panelEls=[...document.querySelectorAll('.panel')];
 let shown=0,target=0,busyL=false;
 const reduceL=matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -760,7 +774,7 @@ async function goLevel(i){
   while(shown!==target){
     const from=shown,to=target,dir=to>from?1:-1;
     const cur=panelEls[from],nxt=panelEls[to];
-    steps.forEach((s,k)=>s.setAttribute('aria-selected',k===to));
+    steps.forEach((s,k)=>s.setAttribute('aria-selected',k===to));centerStep(steps[to]);
     if(reduceL){cur.classList.remove('on');nxt.classList.add('on');shown=to;continue}
     await cur.animate([{transform:'translateX(0)',opacity:1},{transform:`translateX(${-dir*48}px)`,opacity:0}],{duration:220,easing:'cubic-bezier(.5,0,.9,.5)',fill:'forwards'}).finished;
     cur.classList.remove('on');cur.getAnimations().forEach(a=>a.cancel());
