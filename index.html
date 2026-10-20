@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Centro de Enseñanza · Asociación Argentina de Polo</title>
+<meta name="description" content="Centro de enseñanza de la Asociación Argentina de Polo: equipo, niveles, certificaciones, plataforma online y seminarios presenciales.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=Source+Serif+4:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#1c3a13; --lime:#d3fa99; --sage:#757c5d; --olive:#9f995b; --eucalyptus:#698e79;
+  --snow:#fcfcf7; --stone:#eeeee9; --frost:#c4c7c4; --ash:#b3b3b3; --pewter:#666666;
+  --sans:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --gutter:24px; --max:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:112px}
+body{background:var(--snow);color:var(--forest);font-family:var(--sans);font-size:16px;line-height:1.5;font-feature-settings:"ss05" on;-webkit-font-smoothing:antialiased}
+img,svg,video{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+.dark :focus-visible{outline-color:var(--lime)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+section{padding:96px 0}
+.dark{background:var(--forest);color:var(--snow)}
+.stone{background:var(--stone)}
+
+/* type */
+.display{font-size:clamp(36px,6vw,48px);font-weight:350;line-height:1.1;letter-spacing:-.72px}
+.h-lg{font-size:clamp(30px,4.6vw,40px);font-weight:350;line-height:1.1;letter-spacing:-.4px}
+.sub{font-size:24px;font-weight:350;line-height:1.2;letter-spacing:-.48px}
+.body{font-size:18px;line-height:1.4;letter-spacing:-.18px}
+.cap{font-size:14px;line-height:1.4}
+.muted{color:var(--pewter)}
+.dark .muted{color:var(--frost)}
+.mono{font-family:var(--mono);letter-spacing:.015em;font-weight:400}
+.label{font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+
+/* components */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:16px 24px;border-radius:1000px;font-size:16px;font-weight:400;text-decoration:none;border:1.5px solid transparent;white-space:nowrap;transition:opacity .2s}
+.btn:hover{opacity:.85}
+.btn-fill{background:var(--forest);color:var(--snow)}
+.btn-inv{background:var(--snow);color:var(--forest);border-color:var(--forest)}
+.btn-ghost{background:transparent;color:var(--snow);border-color:var(--snow)}
+.dark .btn-fill{background:var(--snow);color:var(--forest)}
+.pill{display:inline-block;padding:6px 8px;border-radius:1000px;font-size:12px;font-weight:500;line-height:1.2}
+.pill-lime{background:var(--lime);color:var(--forest)}
+.pill-out{border:1.5px solid currentColor}
+.link{display:inline-block;padding:7px 10px 7px 0;border-bottom:1.5px solid currentColor;text-decoration:none;font-weight:400}
+.link::after{content:" →"}
+.draft{background:var(--lime);color:var(--forest)}
+
+/* promo + nav */
+.promo{background:var(--snow);border-bottom:1px solid var(--stone);text-align:center;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;padding:11px var(--gutter);line-height:1.5}
+.promo a{margin-left:8px}
+nav{position:sticky;top:0;z-index:20;background:var(--snow)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;font-size:20px;font-weight:350;letter-spacing:-.3px}
+.brand{white-space:nowrap}
+@media (max-width:1180px){.brand small{display:none}}
+.brand-logo{height:72px;width:auto;display:block}
+nav .wrap{height:96px!important}
+@media (max-width:560px){.brand-logo{height:40px;max-width:60vw}nav .wrap{height:68px!important}}
+.endorse{padding:40px 0;border-top:1px solid var(--stone);border-bottom:1px solid var(--stone)}
+.endorse .wrap{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
+.endorse img{height:88px;width:auto}
+.endorse .sep{width:1.5px;height:56px;background:var(--forest);opacity:.25}
+.logos{display:flex;gap:16px;margin-top:24px}
+.logos{gap:32px;align-items:center}
+.logos span{display:grid;place-items:center}
+.logos img{height:72px;width:auto;filter:brightness(0) invert(1)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--forest)}
+.brand small{font-size:12px;font-weight:400;color:var(--pewter);letter-spacing:0;margin-left:4px}
+.links{display:flex;gap:28px;font-size:14px}
+.links a{text-decoration:none}
+.links a:hover{text-decoration:underline;text-underline-offset:6px}
+.nav-cta{display:flex;gap:8px}
+.nav-cta .btn{padding:12px 20px;font-size:14px}
+
+/* hero */
+.hero{padding:64px 0 96px}
+.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.hero .display{margin:24px 0}
+.hero .body{max-width:480px}
+.hero .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:40px}
+.stats{display:flex;gap:40px;margin-top:56px;flex-wrap:wrap}
+.stats b{display:block;font-size:36px;font-weight:300;line-height:1;letter-spacing:-.4px}
+.stats span{font-size:12px;color:var(--pewter)}
+.hero-art{background:var(--forest);border-radius:32px;aspect-ratio:1/1.05;position:relative;overflow:hidden;color:var(--snow)}
+.hero-art svg{position:absolute;inset:0;width:100%;height:100%}
+.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.cap-card{background:var(--snow);color:var(--forest);padding:12px 20px;border-radius:1000px;font-size:18px}
+.hero-art .tag{position:absolute;left:24px;top:24px}
+.hero-art .cap-b{position:absolute;left:24px;right:24px;bottom:24px;display:flex;justify-content:space-between;align-items:end;gap:16px}
+.tag-t{background:rgba(252,252,247,.2);color:var(--snow)}
+
+/* section head */
+.head{display:grid;grid-template-columns:2fr 3fr;gap:64px;margin-bottom:64px;align-items:end}
+.head .h-lg{margin-top:16px}
+.head p{max-width:520px;justify-self:end}
+
+/* team */
+.team-main{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.person{border-radius:32px;background:var(--stone);padding:16px;display:grid;grid-template-rows:auto 1fr;gap:24px}
+.photo{border-radius:16px;background:var(--frost);display:grid;place-items:center;color:var(--forest);position:relative;overflow:hidden;aspect-ratio:4/3}
+.photo.tall{aspect-ratio:4/4.6}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo svg{width:42%;opacity:.35}
+.photo .mono{position:absolute;left:12px;bottom:10px;font-size:12px}
+.person .info{padding:0 8px 8px;display:flex;flex-direction:column;gap:12px}
+.person .info .sub{margin-top:4px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+.assist-title{margin:64px 0 24px;display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.assist{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ay .photo{aspect-ratio:1/1}
+.ay{display:flex;flex-direction:column;gap:12px}
+.ay h4{font-size:18px;font-weight:350;letter-spacing:-.18px;line-height:1.2}
+.ay p{font-size:14px;color:var(--pewter)}
+
+/* testimonials */
+.quotes{display:grid;grid-template-columns:1fr;gap:16px}
+.q{border-radius:32px;border:1.5px solid rgba(252,252,247,.35);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.q blockquote{font-size:clamp(24px,3vw,32px);font-weight:300;line-height:1.2;letter-spacing:-.48px}
+.q.big{padding:56px}@media (max-width:560px){.q.big{padding:24px}}.q.big blockquote{font-size:clamp(22px,2.8vw,32px);letter-spacing:-.4px;line-height:1.25;max-width:960px}
+.who{display:flex;align-items:center;gap:16px}
+.avatar{object-fit:cover;width:56px;height:56px;border-radius:50%;background:rgba(252,252,247,.2);display:grid;place-items:center;font-size:14px;font-weight:500;flex:none}
+.quotes{margin-bottom:16px}.quotes.two{grid-template-columns:1fr 1fr;margin-bottom:0}
+.quotes:not(.big) .q:not(.big){padding:32px}
+.quotes .q:not(.big) blockquote{font-size:20px;line-height:1.3}
+.quotes .q:not(.big) blockquote.long{font-size:16px;font-weight:350;line-height:1.45;letter-spacing:-.1px}
+
+/* program */
+.prog{display:grid;grid-template-columns:2fr 3fr;gap:64px;align-items:start}
+.steps{display:flex;flex-direction:column;gap:8px;position:sticky;top:104px}
+.step{display:flex;align-items:center;gap:16px;padding:16px;border-radius:16px;text-align:left;width:100%;transition:background .2s}
+.step .mono{font-size:12px;padding:6px 8px;border-radius:1000px;border:1.5px solid currentColor;flex:none}
+.step b{font-weight:350;font-size:20px;letter-spacing:-.2px}
+.step[aria-selected="true"]{background:var(--forest);color:var(--snow)}
+.step:not([aria-selected="true"]):hover{background:var(--stone)}
+.panel{border-radius:32px;background:var(--stone);padding:40px;min-height:440px;display:none;flex-direction:column;gap:32px}
+.panel.on{display:flex}
+.panel .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;border-top:1.5px solid var(--forest);padding-top:24px}
+.panel .meta div{font-size:14px}
+.panel .meta b{display:block;font-size:24px;font-weight:350;letter-spacing:-.48px}
+.panel ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 32px}
+.panel li{display:flex;gap:12px;align-items:baseline}
+.panel li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--forest);flex:none;transform:translateY(-3px)}
+.bar{height:6px;border-radius:1000px;background:var(--frost);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--forest);border-radius:1000px}
+
+/* certs */
+.certs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cert{display:flex;flex-direction:column;gap:16px}
+.vid{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:3/4;background:rgba(252,252,247,.12);cursor:pointer;border:0;width:100%;color:var(--snow)}
+.vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vid .ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:16px}
+.vid .ph svg{width:100%;height:auto;margin:auto;max-width:150px;opacity:.55}
+.vid .play{position:absolute;right:16px;bottom:16px;width:44px;height:44px;border-radius:50%;background:var(--snow);color:var(--forest);display:grid;place-items:center}
+.vid .play svg{width:14px;height:14px;margin-left:2px}
+.vid.playing .play{opacity:0}
+.vid .play{transition:opacity .2s}
+.vid .ph{pointer-events:none}
+.cert h3{font-size:24px;font-weight:350;letter-spacing:-.48px;line-height:1.2}
+.cert p{font-size:14px;color:var(--frost)}
+
+/* enroll */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.path{border-radius:32px;padding:40px;display:flex;flex-direction:column;gap:24px;min-height:460px}
+.path.a{background:var(--forest);color:var(--snow)}
+.path.a .btn-fill{background:var(--snow);color:var(--forest)}
+.path.a .muted{color:var(--frost)}
+.path.b{background:var(--stone)}
+.path ul{list-style:none;display:grid;gap:10px;font-size:16px}
+.path li{display:flex;gap:12px}
+.path li::before{content:"→";flex:none}
+.path .push{margin-top:auto;display:flex;flex-direction:column;gap:16px}
+.path .price{display:flex;align-items:baseline;gap:12px}
+.path .price b{font-size:36px;font-weight:300;letter-spacing:-.4px}
+
+/* calendar */
+.cal{display:grid;grid-template-columns:2fr 3fr;gap:64px;margin-top:96px}
+.monthnav{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.mlabel{flex:1;overflow:hidden;min-width:0}
+.mlabel span{display:block;font-size:24px;font-weight:350;letter-spacing:-.48px;line-height:1.2;white-space:nowrap}
+.mnav{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--forest);display:grid;place-items:center;flex:none;transition:opacity .2s,background .2s}
+.mnav:hover:not(:disabled){background:var(--forest);color:var(--snow)}
+.mnav:disabled{opacity:.3;cursor:default}
+.mnav svg{width:18px;height:18px}
+.grid,.events{will-change:transform}
+.mbtn{padding:10px 16px;border-radius:1000px;border:1.5px solid var(--forest);font-size:14px}
+.mbtn[aria-pressed="true"]{background:var(--forest);color:var(--snow)}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.grid .dow{font-size:12px;color:var(--pewter);text-align:center;padding-bottom:8px}
+.day{aspect-ratio:1/1;border-radius:12px;display:grid;place-items:center;font-size:14px;position:relative;color:var(--pewter)}
+.day.has{background:var(--forest);color:var(--snow);font-weight:500;cursor:pointer}
+.day.has.sel{background:var(--lime);color:var(--forest)}
+.day:disabled{cursor:default}
+.day.has.past{background:var(--stone);color:var(--ash);cursor:default}
+.legend{display:flex;gap:16px;margin-top:20px;font-size:12px;color:var(--pewter);align-items:center;flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--forest);margin-right:6px}
+.events{display:flex;flex-direction:column;gap:8px}
+.ev{display:grid;grid-template-columns:72px 1fr auto;gap:24px;align-items:center;padding:20px 24px;border-radius:16px;background:var(--snow);border:1.5px solid transparent;transition:border-color .2s}
+.ev.sel{border-color:var(--forest)}
+.ev .date{text-align:center;line-height:1}
+.ev .date b{display:block;font-size:36px;font-weight:300;letter-spacing:-.4px}
+.ev .date span{font-size:12px;text-transform:uppercase;font-weight:500}
+.ev h4{font-size:20px;font-weight:350;letter-spacing:-.2px;line-height:1.2;margin-bottom:4px}
+.ev .cap{color:var(--pewter)}
+.ev .rt{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.empty{padding:32px;color:var(--pewter)}
+
+/* form */
+.form-wrap{display:grid;grid-template-columns:2fr 3fr;gap:64px;align-items:start}
+form{display:grid;gap:16px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{padding:14px 16px;border-radius:1000px;border:1.5px solid var(--snow);font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--snow);color:var(--forest)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:grid;gap:8px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+input,select{width:100%;background:transparent;border:1.5px solid var(--snow);color:var(--snow);border-radius:8px;padding:14px 20px;font:400 16px var(--sans);text-transform:none;letter-spacing:0}
+input::placeholder{color:rgba(252,252,247,.55)}
+select option{color:var(--forest);background:var(--snow)}
+.ok{display:none;padding:24px;border-radius:16px;background:var(--lime);color:var(--forest)}
+.ok.on{display:block}
+
+/* faq + footer */
+details{border-top:1.5px solid var(--forest);padding:24px 0}
+details:last-of-type{border-bottom:1.5px solid var(--forest)}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font-size:24px;font-weight:350;letter-spacing:-.48px;line-height:1.2}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-weight:300}
+details[open] summary::after{content:"–"}
+details p{margin-top:16px;max-width:640px;color:var(--pewter)}
+footer{padding:64px 0 40px}
+footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+footer h5{font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-weight:500;margin-bottom:16px;color:var(--frost)}
+footer ul{list-style:none;display:grid;gap:8px;font-size:14px}
+footer a{text-decoration:none}
+footer a:hover{text-decoration:underline}
+.legal{max-width:var(--max);margin:48px auto 0;padding:24px var(--gutter) 0;border-top:1px solid rgba(252,252,247,.2);font-size:12px;color:var(--frost);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+.totop{position:fixed;right:24px;bottom:24px;z-index:30;width:56px;height:56px;border-radius:50%;background:var(--snow);color:var(--forest);border:1.5px solid var(--forest);display:grid;place-items:center;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s}
+.totop.show{opacity:1;visibility:visible;transform:none}
+.totop svg{width:20px;height:20px}
+@media (max-width:560px){.totop{right:16px;bottom:16px}}
+/* modal de seminario */
+.ev{cursor:pointer}
+.ev:hover{border-color:var(--forest)}
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;visibility:hidden;opacity:0;transition:opacity .3s ease,visibility 0s linear .3s}
+.modal.open{visibility:visible;opacity:1;transition:opacity .3s ease}
+.m-back{position:absolute;inset:0;background:rgba(255,255,255,.22);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%)}
+.m-panel{position:relative;width:min(1160px,100%);height:calc(100dvh - 32px);background:var(--snow);color:var(--forest);border-radius:24px;display:flex;flex-direction:column;overflow:hidden;transform:translateY(28px) scale(.98);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.modal.open .m-panel{transform:none}
+.m-panel:focus{outline:none}
+.m-x{position:absolute;top:20px;right:20px;z-index:2;background:var(--snow)}
+.m-body{flex:1;overflow-y:auto;padding:56px 56px 32px;overscroll-behavior:contain}
+.m-head{max-width:760px;margin-bottom:40px}
+.m-head .h-lg{margin:16px 0 12px}
+.m-head .tags{display:flex;gap:8px;flex-wrap:wrap}
+.m-grid{display:grid;grid-template-columns:2fr 3fr;gap:56px;align-items:start}
+.m-facts{display:grid;gap:0}
+.m-facts div{display:grid;gap:4px;padding:16px 0;border-top:1.5px solid var(--forest)}
+.m-facts dt{font-size:12px;text-transform:uppercase;letter-spacing:.04em;opacity:.6}
+.m-facts dd{font-size:18px}
+.m-facts ul{list-style:none;display:grid;gap:6px;font-size:16px}
+.m-facts li::before{content:"→ "}
+.m-day+.m-day{margin-top:40px}
+.m-day h3{font-size:24px;font-weight:350;letter-spacing:-.48px;margin-bottom:16px}
+.m-day ol{list-style:none}
+.m-day li{display:grid;grid-template-columns:72px 1fr;gap:20px;padding:16px 0;border-top:1px solid color-mix(in srgb,var(--forest) 18%,transparent);align-items:baseline}
+.m-day li time{font-size:14px;opacity:.65;font-variant-numeric:tabular-nums}
+.m-note{margin-top:32px;font-size:13px;opacity:.6}
+.m-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:20px 56px;border-top:1px solid color-mix(in srgb,var(--forest) 18%,transparent);background:var(--snow)}
+.m-foot .price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.m-foot .price b{font-size:28px;font-weight:350;letter-spacing:-.3px}
+.m-foot .acts{display:flex;gap:8px;flex-wrap:wrap}
+@media (max-width:760px){.m-panel{height:calc(100dvh - 16px);border-radius:20px}.modal{padding:8px}.m-body{padding:72px 20px 24px}.m-grid{grid-template-columns:1fr;gap:32px}.m-foot{padding:16px 20px}.m-day li{grid-template-columns:56px 1fr;gap:12px}.m-foot .acts{width:100%}.m-foot .acts .btn{flex:1;justify-content:center}}
+@media (prefers-reduced-motion:reduce){.modal,.m-panel{transition:none}}
+/* responsive */
+@media (max-width:980px){
+  section{padding:64px 0}
+  .links{display:none}
+  .hero .wrap,.head,.prog,.cal,.form-wrap,.paths,.quotes,.quotes.two,.team-main{grid-template-columns:1fr}
+  .head{gap:24px;margin-bottom:40px}.head p{justify-self:start}
+  .hero{padding:32px 0 64px}.hero .wrap{gap:40px}
+  .assist,.certs{grid-template-columns:1fr 1fr}
+  .steps{position:static;flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:4px}
+  .step{width:auto;flex:none}.step b{font-size:16px}
+  .prog{gap:24px}.cal{gap:40px;margin-top:64px}.form-wrap{gap:32px}
+  footer .wrap{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  :root{--gutter:16px}
+  .nav-cta .btn-inv{display:none}
+  .brand small{display:none}
+  .assist,.certs,.row,.panel ul,.panel .meta{grid-template-columns:1fr}
+  .panel{padding:24px}.q,.path{padding:24px}
+  .ev{grid-template-columns:56px 1fr;gap:16px}.ev .rt{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center}
+  .stats{gap:24px}
+  footer .wrap{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+<style id="theme-claude">
+/* Tema Claude: tokens de DESIGN MDs/Claude.md (serif editorial + sans, monocromo cálido, clay decorativo) */
+:root{--forest:#121212;--lime:#e7e6e1;--snow:#f8f8f6;--stone:#efeeeb;--frost:#b7b7b5;--pewter:#7b7974;
+ --ink:#121212;--graphite:#373734;--chalk:#e7e6e1;--mist:#b7b7b5;--clay:#d97757;
+ --sans:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:var(--sans);
+ --serif:'Source Serif 4',Charter,Georgia,ui-serif,serif}
+body{color:var(--ink);font-feature-settings:normal;line-height:1.5}
+.mono{font-family:var(--sans);letter-spacing:0}
+section{padding:80px 0}
+/* serif solo en titulares (24 y 30 px, peso 400) */
+.display{font-family:var(--serif);font-size:clamp(34px,4.6vw,44px);font-weight:400;line-height:1.2;letter-spacing:0}
+.h-lg{font-family:var(--serif);font-size:30px;font-weight:400;line-height:1.2;letter-spacing:0}
+.path .h-lg{font-size:30px!important}
+.sub,.q.big .sub{font-family:var(--serif);font-size:24px;font-weight:400;line-height:1.33;letter-spacing:0}
+.person .sub{font-size:24px}
+.q .who .sub{font-family:var(--sans);font-size:16px!important;font-weight:500}
+.body{font-size:16px;letter-spacing:0;line-height:1.5;color:var(--graphite)}
+.muted{color:var(--pewter)}
+.hero .body{color:var(--graphite)}
+.stats b{font-family:var(--serif);font-weight:400;font-size:30px;letter-spacing:0}
+.stats span{color:var(--pewter)}
+.label{font-weight:500}
+/* botones: relleno oscuro, radio 8, sin cromáticos */
+.btn{border-radius:8px;padding:10px 20px;font-size:15px;font-weight:500;border-width:1px}
+.btn-fill,.dark .btn-fill,.path.a .btn-fill,section.dark .btn-fill{background:var(--ink);color:var(--snow);border-color:var(--ink)}
+.btn-inv{background:transparent;color:var(--graphite);border-color:var(--mist)}
+.link{font-weight:500;border-bottom-width:1px}
+/* badges de estado: tinte cálido, radio 8 */
+.pill{border-radius:8px;font-size:12px;font-weight:500;padding:4px 8px;text-transform:none;letter-spacing:0}
+.pill-lime{background:var(--chalk);color:var(--ink)}
+.pill-out{border:1px solid var(--mist);color:var(--graphite)}
+.tag-t{background:#fff;color:var(--ink)}
+/* marca clay decorativa */
+.head .pill-out,.cal .pill-out,#faq-grid .pill-out{border:0;padding:0;font-size:13px;color:var(--graphite);display:inline-flex;align-items:center;gap:8px}
+.head .pill-out::before,.cal .pill-out::before,#faq-grid .pill-out::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--clay)}
+.hero .pill-lime{background:transparent;padding:0;display:inline-flex;align-items:center;gap:8px;color:var(--graphite)}
+.hero .pill-lime::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--clay)}
+/* nav: logo a la izquierda, enlaces a la derecha, sin bordes */
+nav{background:var(--snow);border-bottom:1px solid var(--chalk)}
+nav .links a{font-weight:500;color:var(--graphite);padding:8px 12px;border-radius:8px;font-size:15px}
+nav .links a:hover{color:var(--ink);text-decoration:none;background:var(--stone)}
+nav .links{gap:4px}
+nav .brand{font-family:var(--serif);font-size:20px;font-weight:400}
+nav .wrap{gap:16px}
+.nav-cta .btn{padding:8px 20px;font-size:15px}
+.promo{background:var(--stone);color:var(--graphite);border-bottom:1px solid var(--chalk);font-weight:500;letter-spacing:0;text-transform:none}
+/* superficies: lienzo → papel blanco → piedra */
+.stone{background:var(--stone)}
+section.dark{background:var(--stone);color:var(--ink)}
+section.dark .muted{color:var(--pewter)}
+section.dark .pill-out{color:var(--graphite)}
+section.dark .head .pill-out{color:var(--graphite)}
+.hero-art{background:var(--chalk);border-radius:24px}
+.hero-photo,.photo,.vid{border-radius:16px}
+.cap-card{background:#fff;color:var(--ink);font-size:15px;font-weight:500;border-radius:8px;padding:10px 16px;font-family:var(--sans)}
+.person{background:#fff!important;border:1px solid var(--chalk);border-radius:24px}
+.photo{background:var(--chalk)}
+.ay p{color:var(--pewter)}
+.q{background:#fff;border:1px solid var(--chalk);border-radius:24px;color:var(--ink)}
+.q blockquote,.q.big blockquote{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.33;letter-spacing:0;max-width:none}
+.q.big blockquote{font-size:clamp(20px,2.4vw,24px)}
+.quotes .q:not(.big) blockquote{font-size:18px;line-height:1.5}
+.quotes .q:not(.big) blockquote.long{font-size:16px}
+.q.big{padding:48px}
+.avatar{background:var(--chalk);color:var(--graphite)}
+.panel{background:#fff;border:1px solid var(--chalk);border-radius:24px}
+.panel .meta{border-top:1px solid var(--chalk)}
+.panel .meta b{font-family:var(--serif);font-weight:400}
+.panel li::before{background:var(--ink)}
+.bar{background:var(--chalk)}
+.step{border-radius:8px;font-weight:500}
+.step b{font-family:var(--sans);font-weight:500;font-size:18px;letter-spacing:0}
+.step .mono{font-size:11px;border-width:1px}
+.step[aria-selected="true"]{background:var(--ink);color:var(--snow)}
+.step:not([aria-selected="true"]):hover{background:var(--stone)}
+/* certificaciones */
+.vid{background:var(--chalk);color:var(--ink)}
+.vid .ph svg{stroke:var(--ink);opacity:.5}
+.vid .play{background:var(--ink);color:var(--snow);border-radius:8px}
+.mnav{border-radius:8px;border-width:1px}
+.mlabel span{font-family:var(--serif);font-weight:400;letter-spacing:0}
+.m-panel,.m-foot{background:#fff}.m-x{background:#fff}
+.vid .ph .cap{padding-right:56px}
+.cert p{color:var(--pewter)}
+.cert h3{font-family:var(--serif);font-weight:400;font-size:24px}
+/* inscripción */
+.path{border-radius:24px;border:1px solid var(--chalk)}
+.path.a{background:#fff;color:var(--ink)}
+.path.b{background:var(--stone)}
+.path.a .muted,.path.b .muted{color:var(--pewter)}
+.path.a .pill-out{color:var(--graphite)}
+.price b{font-family:var(--sans);font-size:24px;font-weight:580}
+/* calendario */
+.mbtn{border:1px solid var(--mist);border-radius:8px;font-weight:500}
+.mbtn[aria-pressed="true"]{background:var(--ink);color:var(--snow);border-color:var(--ink)}
+.day{border-radius:8px}
+.day.has{background:var(--ink);color:var(--snow)}
+.day.has.sel{background:var(--chalk);color:var(--ink);outline:1px solid var(--ink);outline-offset:-1px}
+.ev{background:#fff;border:1px solid var(--chalk);border-radius:16px}
+.ev.sel{border-color:var(--ink)}
+.ev .date b{font-family:var(--serif);font-weight:400}
+.ev h4{font-weight:500}
+/* formulario */
+.seg button{border:1px solid var(--mist);border-radius:8px;color:var(--graphite);font-weight:500}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--snow);border-color:var(--ink)}
+label{color:var(--graphite);text-transform:none;letter-spacing:0;font-size:13px;font-weight:500}
+input,select{background:#fff;border:1px solid var(--mist);color:var(--ink);border-radius:8px;padding:12px 14px;font-size:14px}
+input::placeholder{color:var(--pewter)}
+.ok{background:var(--chalk);color:var(--ink);border-radius:8px}
+form .cap{color:var(--pewter)!important}
+/* faq */
+details,details:last-of-type{border-color:var(--chalk);border-width:1px}
+summary{font-family:var(--sans);font-size:16px;font-weight:500;letter-spacing:0;color:var(--graphite)}
+details p{color:var(--ink);font-size:14px}
+/* pie: único bloque negro */
+footer.dark{background:#000;color:var(--pebble,#9c9a92)}
+footer .muted,footer h5,footer .legal{color:#9c9a92}
+footer a{color:#9c9a92}footer a:hover{color:#fff}
+footer .brand{color:#fff!important}
+footer .dot{background:var(--clay)!important}
+footer h5{font-weight:500;letter-spacing:0;text-transform:none;font-size:13px}
+.legal{border-color:rgba(255,255,255,.15)}
+.totop{background:var(--ink);color:var(--snow);border:0;border-radius:12px}
+@media (max-width:980px){nav .links{display:none}}
+</style>
+</head>
+<body>
+
+<div class="promo">Borrador de diseño · contenidos, nombres, citas y fechas son marcadores a confirmar</div>
+
+<nav aria-label="Principal">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Centro de Enseñanza de Polo, avalado por la Asociación Argentina de Polo"><img src="img/logo-centro-horizontal.png" alt="Centro de Enseñanza de Polo — avalado por la Asociación Argentina de Polo" class="brand-logo"></a>
+    <div class="links">
+      <a href="#equipo">Equipo</a>
+      <a href="#programa">Programa</a>
+      <a href="#certificaciones">Certificaciones</a>
+      <a href="#seminarios">Seminarios</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-inv" href="#seminarios">Seminarios</a>
+      <a class="btn btn-fill" href="#inscripcion">Inscribirme</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="pill pill-lime">Inscripción 2027 abierta</span>
+      <h1 class="display">Aprender polo con quienes lo juegan al más alto nivel.</h1>
+      <p class="body muted">El centro de enseñanza de la Asociación Argentina de Polo reúne método, caballos y entrenadores en un programa único: online a tu ritmo y en cancha, en seminarios presenciales.</p>
+      <div class="actions">
+        <a class="btn btn-fill" href="#inscripcion">Registrarme en la plataforma</a>
+        <a class="btn btn-inv" href="#seminarios">Ver calendario de seminarios</a>
+      </div>
+      <div class="stats">
+        <div><b class="mono">05</b><span>niveles de aprendizaje</span></div>
+        <div><b class="mono">04</b><span>certificaciones oficiales</span></div>
+        <div><b class="mono">+120</b><span>clases en video</span></div>
+      </div>
+    </div>
+    <div class="hero-art" role="img" aria-label="Un instructor enseñando a una jugadora a caballo en la cancha">
+      <img src="img/hero-clase.png" alt="" class="hero-photo">
+      <span class="pill tag-t tag">AAP-01 · Método</span>
+      <div class="cap-b"><span class="cap-card sub">Del primer swing al primer chukker.</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="endorse">
+  <div class="wrap">
+    <span class="label muted">Una iniciativa de</span>
+    <img src="img/logo-aap.png" alt="Asociación Argentina de Polo">
+    <span class="sep" aria-hidden="true"></span>
+    <img src="img/logo-cria-polo.png" alt="Cria Polo Argentino">
+  </div>
+</div>
+
+<!-- EQUIPO -->
+<section id="equipo" class="stone">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="pill pill-out">Equipo</span>
+        <h2 class="h-lg">Dos directores, un cuerpo de ayudantes en cancha.</h2>
+      </div>
+      <p class="body muted">Cada alumno trabaja con un instructor principal y con ayudantes que acompañan el entrenamiento diario, el cuidado del caballo y la corrección técnica.</p>
+    </div>
+
+    <div class="team-main">
+      <article class="person" style="background:var(--snow)">
+        <div class="photo tall"><img src="img/guillermo-villanueva.webp" alt="Guillermo Villanueva" style="object-position:50% 20%"></div>
+        <div class="info">
+          <div><span class="pill pill-out mono">DIR-01</span></div>
+          <h3 class="sub">Guillermo Villanueva</h3>
+          <p class="muted">Director de educación del juego y de las reglas. Descubre y forma árbitros de polo y dirige el grupo de referees de la Asociación. [Trayectoria, años de experiencia y antecedentes — a completar.]</p>
+          <div class="chips"><span class="pill pill-lime">Reglamento</span><span class="pill pill-out">Formación de árbitros</span></div>
+        </div>
+      </article>
+      <article class="person" style="background:var(--snow)">
+        <div class="photo tall"><img src="img/eduardo-amaya.webp" alt="Eduardo Amaya" style="object-position:50% 20%"></div>
+        <div class="info">
+          <div><span class="pill pill-out mono">DIR-02</span></div>
+          <h3 class="sub">Eduardo Amaya</h3>
+          <p class="muted">Conocido como “el Profesor del polo”. Veterinario (UBA) y jugador de hasta 5 goles de handicap, ganó la Copa República Argentina en 1968. Dedicó su carrera a estudiar y sistematizar la técnica del polo —más de 700 artículos y años de análisis de video— y dicta clases y clínicas a alumnos de 5 a más de 70 años. Hoy enseña en Houston, Estados Unidos.</p>
+          <div class="chips"><span class="pill pill-lime">Técnica del polo</span><span class="pill pill-out">Análisis de video</span></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="assist-title">
+      <h3 class="sub">Ayudantes de cancha</h3>
+      <span class="cap muted mono">04 · lista ampliable</span>
+    </div>
+    <div class="assist">
+      <article class="ay"><div class="photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.5 3.6-7 8-7s8 2.5 8 7"/></svg><span class="mono">FOTO</span></div><h4>[Nombre Apellido]</h4><p>Ayudante · Iniciación</p></article>
+      <article class="ay"><div class="photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.5 3.6-7 8-7s8 2.5 8 7"/></svg><span class="mono">FOTO</span></div><h4>[Nombre Apellido]</h4><p>Ayudante · Fundamentos</p></article>
+      <article class="ay"><div class="photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.5 3.6-7 8-7s8 2.5 8 7"/></svg><span class="mono">FOTO</span></div><h4>[Nombre Apellido]</h4><p>Ayudante · Caballos</p></article>
+      <article class="ay"><div class="photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.5 3.6-7 8-7s8 2.5 8 7"/></svg><span class="mono">FOTO</span></div><h4>[Nombre Apellido]</h4><p>Ayudante · Reglamento</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="voces" class="dark">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="pill pill-out">Voces del polo</span>
+        <h2 class="h-lg">Lo que dice quien lo vive.</h2>
+      </div>
+      <p class="body muted">Jugadores y dirigentes que respaldan el método del centro.</p>
+    </div>
+    <div class="quotes">
+      <figure class="q big">
+        <blockquote>“Eduardo, conozco tu pasión por este deporte desde hace mucho, cuando jugabas con mi padre y yo recién empezaba a pegarle a la bocha. En estos años vi que tu método de enseñanza da resultados increíbles con jugadores y principiantes de todos los niveles. Por la didáctica de tu método y por cómo lo enseñás, estoy seguro de que sos el profesor de polo número 1. Te deseo el mayor de los éxitos.”</blockquote>
+        <figcaption class="who"><img class="avatar" src="img/adolfo-cambiaso.jpg" alt="Adolfo Cambiaso"><div><div class="sub" style="font-size:20px">Adolfo Cambiaso</div><div class="cap muted">Mejor jugador de polo del mundo · sobre Eduardo Amaya</div></div></figcaption>
+      </figure>
+      
+    </div>
+    <div class="quotes two">
+      <figure class="q">
+          <blockquote class="long">“Eduardo es uno de los entrenadores de polo más codiciados del polo mundial. Su formación como cirujano veterinario y como jugador profesional vuelve científico su enfoque del polo. Su manera de comunicar los elementos de la equitación se apoya en su conocimiento de la mecánica y la constitución del caballo, y considera cada aspecto de su complejidad. Viaja parte del año como entrenador y vuelve a la Argentina para la temporada en septiembre, cuando se dedica a entrenar alumnos del exterior. Es instructor principal de la International Polo Academy y usa el análisis de Dartfish en sus clases.”</blockquote>
+          <figcaption class="who"><img class="avatar" src="img/uspa.jpg" alt="United States Polo Association"><div><div style="font-weight:500">USPA USA</div><div class="cap muted">United States Polo Association · sobre Eduardo Amaya</div></div></figcaption>
+        </figure>
+      
+      <figure class="q">
+          <blockquote>“Un alma inquieta, en busca del juego perfecto, del swing perfecto, de la monta perfecta, con ojo de águila y un programa de entrenamiento magnífico que se centra en la simplicidad y el progreso. Análisis agudo, práctica directa y sin vueltas para jugar mejor. El científico del polo. Professor Polo.”</blockquote>
+          <figcaption class="who"><img class="avatar" src="img/carsten-steinacker.jpg" alt="Carsten Steinacker"><div><div style="font-weight:500">Carsten Steinacker</div><div class="cap muted">Alemania · sobre Eduardo Amaya</div></div></figcaption>
+        </figure>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMA -->
+<section id="programa">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="pill pill-out">Programa</span>
+        <h2 class="h-lg">Cinco niveles, de la primera montada al juego de torneo.</h2>
+      </div>
+      <p class="body muted">Cada nivel combina módulos online con práctica en cancha. Se avanza al siguiente al aprobar la evaluación del instructor.</p>
+    </div>
+    <div class="prog">
+      <div class="steps" role="tablist" aria-label="Niveles">
+        <button class="step" role="tab" aria-selected="true" data-i="0"><span class="mono">N1</span><b>Iniciación</b></button>
+        <button class="step" role="tab" aria-selected="false" data-i="1"><span class="mono">N2</span><b>Fundamentos</b></button>
+        <button class="step" role="tab" aria-selected="false" data-i="2"><span class="mono">N3</span><b>Juego</b></button>
+        <button class="step" role="tab" aria-selected="false" data-i="3"><span class="mono">N4</span><b>Competición</b></button>
+        <button class="step" role="tab" aria-selected="false" data-i="4"><span class="mono">N5</span><b>Instructor</b></button>
+      </div>
+      <div id="panels"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICACIONES -->
+<section id="certificaciones" class="dark">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="pill pill-out">Certificaciones</span>
+        <h2 class="h-lg">Cuatro credenciales avaladas por la Asociación.</h2>
+      </div>
+      <p class="body muted">Un clip corto muestra qué se evalúa en cada una. Tocá o pasá el cursor para verlo en movimiento.</p>
+    </div>
+    <div class="certs" id="certs"></div>
+  </div>
+</section>
+
+<!-- INSCRIPCIÓN -->
+<section id="inscripcion">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="pill pill-lime">Empezá ahora</span>
+        <h2 class="h-lg">Dos formas de entrar al centro.</h2>
+      </div>
+      <p class="body muted">Registrate en la plataforma para aprender a tu ritmo, o reservá tu lugar en un seminario presencial. También podés combinar ambas.</p>
+    </div>
+
+    <div class="paths">
+      <article class="path a">
+        <div><span class="pill pill-out mono">ONLINE-01</span></div>
+        <h3 class="h-lg" style="font-size:36px">Plataforma interactiva</h3>
+        <ul>
+          <li>Clases en video por nivel, con ejercicios de seguimiento</li>
+          <li>Análisis de tu golpe: subí un clip y recibí devolución</li>
+          <li>Simulador de reglamento y evaluaciones por módulo</li>
+          <li>Acceso a las certificaciones teóricas</li>
+        </ul>
+        <div class="push">
+          <div class="price"><b class="mono">USD 100</b><span class="cap muted">por mes</span></div>
+          <div><a class="btn btn-fill" href="#registro" data-mode="online">Crear mi cuenta</a></div>
+        </div>
+      </article>
+      <article class="path b">
+        <div><span class="pill pill-out mono">PRES-02</span></div>
+        <h3 class="h-lg" style="font-size:36px">Seminarios en persona</h3>
+        <ul>
+          <li>Jornadas intensivas de 2 a 3 días en cancha</li>
+          <li>Grupos reducidos con los directores y ayudantes</li>
+          <li>Caballos provistos y equipamiento incluido</li>
+          <li>Evaluación práctica para certificaciones</li>
+        </ul>
+        <div class="push">
+          <div class="price"><b class="mono">USD 250</b><span class="cap muted">por seminario</span></div>
+          <div><a class="btn btn-fill" href="#seminarios">Ver fechas</a></div>
+        </div>
+      </article>
+    </div>
+
+    <!-- CALENDARIO -->
+    <div class="cal" id="seminarios">
+      <div>
+        <span class="pill pill-out">Calendario</span>
+        <h3 class="h-lg" style="margin:16px 0 32px">Próximos seminarios presenciales</h3>
+        <div class="monthnav">
+          <button class="mnav" id="mprev" type="button" aria-label="Mes anterior"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6"/></svg></button>
+          <div class="mlabel" aria-live="polite"><span id="mlabel"></span></div>
+          <button class="mnav" id="mnext" type="button" aria-label="Mes siguiente"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7.5 4 6 6-6 6"/></svg></button>
+        </div>
+        <div class="grid" id="grid" aria-label="Calendario mensual"></div>
+        <div class="legend"><span><i></i>Seminario</span><span class="mono">Cupos limitados · fechas de ejemplo</span></div>
+      </div>
+      <div class="events" id="events" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTRO -->
+<section id="registro" class="dark">
+  <div class="wrap form-wrap">
+    <div>
+      <span class="pill pill-lime">Registro</span>
+      <h2 class="h-lg" style="margin:16px 0 24px">Reservá tu lugar.</h2>
+      <p class="body muted">Dejanos tus datos y te escribimos con los próximos pasos. Sin costo hasta confirmar tu nivel inicial.</p>
+    </div>
+    <form id="form" novalidate>
+      <div class="seg" role="group" aria-label="Tipo de inscripción">
+        <button type="button" data-mode="online" aria-pressed="true">Plataforma online</button>
+        <button type="button" data-mode="presencial" aria-pressed="false">Seminario presencial</button>
+      </div>
+      <div class="row">
+        <label>Nombre<input name="nombre" placeholder="Nombre" autocomplete="given-name" required></label>
+        <label>Apellido<input name="apellido" placeholder="Apellido" autocomplete="family-name" required></label>
+      </div>
+      <label>Email<input type="email" name="email" placeholder="nombre@correo.com" autocomplete="email" required></label>
+      <div class="row">
+        <label>Experiencia
+          <select name="exp"><option>Nunca jugué</option><option>Principiante</option><option>Intermedio</option><option>Avanzado</option></select>
+        </label>
+        <label id="sem-label" style="display:none">Seminario
+          <select name="sem" id="sem-select"></select>
+        </label>
+        <label id="pais-label">País<input name="pais" placeholder="Argentina" autocomplete="country-name"></label>
+      </div>
+      <div><button class="btn btn-fill" type="submit">Enviar registro</button></div>
+      <p class="cap muted" style="color:var(--frost)">Al enviar aceptás recibir comunicaciones del centro. Podés darte de baja cuando quieras.</p>
+      <div class="ok" id="ok" role="status"></div>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap" style="display:grid;grid-template-columns:2fr 3fr;gap:64px" id="faq-grid">
+    <div><span class="pill pill-out">Preguntas</span><h2 class="h-lg" style="margin-top:16px">Antes de empezar.</h2></div>
+    <div>
+      <details><summary>¿Necesito tener caballo propio?</summary><p>[Respuesta a definir: en los seminarios se proveen caballos y equipamiento.]</p></details>
+      <details><summary>¿Desde qué edad se puede participar?</summary><p>[Respuesta a definir: edades mínimas y programa juvenil.]</p></details>
+      <details><summary>¿Las certificaciones son oficiales?</summary><p>[Respuesta a definir: validez y reconocimiento por la AAP.]</p></details>
+      <details><summary>¿Puedo empezar online y luego pasar a lo presencial?</summary><p>[Respuesta a definir: los niveles se acreditan en ambas modalidades.]</p></details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="dark">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#top" style="color:var(--snow)"><span class="dot" style="background:var(--lime)"></span>Centro de Enseñanza</a>
+      <p class="cap muted" style="margin-top:16px;max-width:300px">Un programa de la Asociación Argentina de Polo.</p>
+      <div class="logos"><span><img src="img/logo-aap.png" alt="Asociación Argentina de Polo"></span><span><img src="img/logo-cria-polo.png" alt="Cria Polo Argentino"></span></div>
+    </div>
+    <div><h5>Centro</h5><ul><li><a href="#equipo">Equipo</a></li><li><a href="#programa">Programa</a></li><li><a href="#certificaciones">Certificaciones</a></li></ul></div>
+    <div><h5>Inscripción</h5><ul><li><a href="#inscripcion">Plataforma online</a></li><li><a href="#seminarios">Seminarios</a></li><li><a href="#registro">Registro</a></li></ul></div>
+    <div><h5>Contacto</h5><ul><li>[email@aap.org.ar]</li><li>[Teléfono]</li><li>[Dirección]</li></ul></div>
+  </div>
+  <div class="legal"><span>© 2026 Asociación Argentina de Polo</span><span class="mono">Borrador de diseño v0.1</span></div>
+</footer>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="m-back" data-close></div>
+  <div class="m-panel" role="dialog" aria-modal="true" aria-labelledby="m-title" tabindex="-1">
+    <button class="mnav m-x" type="button" data-close aria-label="Cerrar"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button>
+    <div class="m-body" id="m-body"></div>
+    <div class="m-foot" id="m-foot"></div>
+  </div>
+</div>
+<button class="totop" id="totop" type="button" aria-label="Volver arriba"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16V4M4.5 9.5 10 4l5.5 5.5"/></svg></button>
+<script>
+const LEVELS=[
+ {c:'N1',t:'Iniciación',d:'Primer contacto con el caballo, el taco y la cancha. Seguridad y fundamentos de equitación aplicada al polo.',w:'6 semanas',h:'3 h / semana',m:'12 módulos',p:20,l:['Postura y equilibrio a caballo','Agarre del taco y swing básico','Normas de seguridad','Cuidado y equipo del caballo','Golpe de derecha en parado','Reglas elementales']},
+ {c:'N2',t:'Fundamentos',d:'Control del caballo al trote y al galope, golpes de derecha y revés, y lectura de la línea de la bocha.',w:'10 semanas',h:'4 h / semana',m:'18 módulos',p:40,l:['Galope controlado','Revés y golpes de precisión','La línea de la bocha','Frenos y giros','Práctica por parejas','Reglamento esencial']},
+ {c:'N3',t:'Juego',d:'Ingreso al juego en equipo: posiciones, marcación, pases y primeras prácticas con chukkers cortos.',w:'12 semanas',h:'5 h / semana',m:'22 módulos',p:60,l:['Posiciones 1 a 4','Marcación y ride-off','Pases y combinaciones','Chukkers de práctica','Interpretación de faltas','Táctica básica']},
+ {c:'N4',t:'Competición',d:'Preparación para torneos: ritmo de juego, manejo de varios caballos y análisis de partidos en video.',w:'16 semanas',h:'6 h / semana',m:'26 módulos',p:80,l:['Ritmo y estrategia','Manejo de caballada','Análisis de video','Preparación física','Psicología de competencia','Árbitros y reglamento avanzado']},
+ {c:'N5',t:'Instructor',d:'Formación de nuevos instructores: metodología, progresiones, evaluación y seguridad en la enseñanza.',w:'20 semanas',h:'6 h / semana',m:'30 módulos',p:100,l:['Metodología de enseñanza','Diseño de clases','Evaluación por niveles','Primeros auxilios','Gestión de grupos','Práctica tutelada']}
+];
+const panels=document.getElementById('panels');
+panels.innerHTML=LEVELS.map((v,i)=>`
+<div class="panel ${i?'':'on'}" role="tabpanel" data-i="${i}">
+  <div class="bar" aria-hidden="true"><i style="width:${v.p}%"></i></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:16px"><span class="pill pill-out mono">${v.c}</span><span class="cap muted mono">Nivel ${i+1} de 5</span></div>
+  <div><h3 class="h-lg">${v.t}</h3><p class="body muted" style="margin-top:12px;max-width:560px">${v.d}</p></div>
+  <ul>${v.l.map(x=>`<li>${x}</li>`).join('')}</ul>
+  <div class="meta"><div><b>${v.w}</b>duración</div><div><b>${v.h}</b>dedicación</div><div><b>${v.m}</b>contenido</div></div>
+</div>`).join('');
+const steps=[...document.querySelectorAll('.step')],panelEls=[...document.querySelectorAll('.panel')];
+let shown=0,target=0,busyL=false;
+const reduceL=matchMedia('(prefers-reduced-motion:reduce)').matches;
+async function goLevel(i){
+  target=i;
+  if(busyL)return;
+  busyL=true;
+  while(shown!==target){
+    const from=shown,to=target,dir=to>from?1:-1;
+    const cur=panelEls[from],nxt=panelEls[to];
+    steps.forEach((s,k)=>s.setAttribute('aria-selected',k===to));
+    if(reduceL){cur.classList.remove('on');nxt.classList.add('on');shown=to;continue}
+    await cur.animate([{transform:'translateX(0)',opacity:1},{transform:`translateX(${-dir*48}px)`,opacity:0}],{duration:220,easing:'cubic-bezier(.5,0,.9,.5)',fill:'forwards'}).finished;
+    cur.classList.remove('on');cur.getAnimations().forEach(a=>a.cancel());
+    nxt.classList.add('on');shown=to;
+    const bar=nxt.querySelector('.bar i'),w=LEVELS[to].p,w0=LEVELS[from].p;
+    nxt.animate([{transform:`translateX(${dir*48}px)`,opacity:0},{transform:'translateX(0)',opacity:1}],{duration:380,easing:'cubic-bezier(.2,.8,.2,1)',fill:'none'});
+    if(bar)bar.animate([{width:w0+'%'},{width:w+'%'}],{duration:520,easing:'cubic-bezier(.2,.8,.2,1)'});
+  }
+  busyL=false;
+}
+steps.forEach((b,k)=>b.addEventListener('click',()=>goLevel(k)));
+
+const play='<svg viewBox="0 0 14 14" fill="currentColor"><path d="M2 1l11 6-11 6z"/></svg>';
+const CERTS=[
+ {c:'CERT-01',t:'Jugador Iniciado',d:'Equitación básica, golpe de derecha y reglas elementales.',s:'video/cert-01.mp4',svg:'<path d="M20 110 L110 20" /><circle cx="130" cy="110" r="10"/>'},
+ {c:'CERT-02',t:'Jugador Habilitado',d:'Juego en equipo, marcación y posiciones, apto para torneos de club.',s:'video/cert-02.mp4',svg:'<path d="M20 100 C60 20, 110 20, 140 90"/><circle cx="140" cy="90" r="10"/><path d="M20 110 H150"/>'},
+ {c:'CERT-03',t:'Instructor',d:'Metodología de enseñanza, progresiones y seguridad.',s:'video/cert-03.mp4',svg:'<circle cx="75" cy="45" r="22"/><path d="M30 120 c0-30 20-42 45-42 s45 12 45 42"/>'},
+ {c:'CERT-04',t:'Árbitro / Umpire',d:'Reglamento, criterio de faltas y manejo del partido.',s:'video/cert-04.mp4',svg:'<path d="M30 110 V30 L120 50 L30 70"/>'}
+];
+document.getElementById('certs').innerHTML=CERTS.map(c=>`
+<article class="cert">
+  <button class="vid" aria-label="Reproducir clip de ${c.t}">
+    ${c.s?`<video muted loop playsinline preload="metadata" src="${c.s}#t=1.1"></video>`:''}
+    <span class="ph"><span class="pill tag-t mono" style="align-self:flex-start">${c.c}</span>
+    ${c.s?'<span></span><span></span>':`<svg viewBox="0 0 160 130" fill="none" stroke="#fcfcf7" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">${c.svg}</svg>
+    <span class="mono cap">Clip 10 s · pendiente</span>`}</span>
+    <span class="play">${play}</span>
+  </button>
+  <h3>${c.t}</h3><p>${c.d}</p>
+</article>`).join('');
+document.querySelectorAll('.vid').forEach(b=>{
+  const v=b.querySelector('video');if(!v)return;
+  const on=()=>{const p=v.play();if(p)p.catch(()=>{});b.classList.add('playing')},off=()=>{v.pause();v.currentTime=1.1;b.classList.remove('playing')};
+  b.addEventListener('mouseenter',on);b.addEventListener('mouseleave',off);
+  b.addEventListener('click',()=>v.paused?on():off());
+});
+
+/* seminarios (fechas de ejemplo) */
+const SEMS=[
+ {d:'2026-11-14',t:'Iniciación intensiva',n:'N1',p:'Sede a confirmar · Buenos Aires',s:12},
+ {d:'2026-11-28',t:'Golpes y precisión',n:'N2',p:'Sede a confirmar · Pilar',s:8},
+ {d:'2026-12-12',t:'Juego en equipo',n:'N3',p:'Sede a confirmar · Open Door',s:10},
+ {d:'2026-12-19',t:'Taller de reglamento y árbitros',n:'CERT-04',p:'Sede a confirmar · AAP',s:20},
+ {d:'2027-01-16',t:'Preparación de competición',n:'N4',p:'Sede a confirmar · Cañuelas',s:6},
+ {d:'2027-01-30',t:'Formación de instructores',n:'N5',p:'Sede a confirmar · Buenos Aires',s:8}
+];
+const MN=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const MS=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+const keyOf=d=>d.slice(0,7);
+const months=[...new Set(SEMS.map(s=>keyOf(s.d)))];
+let curM=months[0],selD=null;
+const lEl=document.getElementById('mlabel'),pBtn=document.getElementById('mprev'),nBtn=document.getElementById('mnext'),gEl=document.getElementById('grid'),eEl=document.getElementById('events');
+function renderMonths(){
+  const [y,m]=curM.split('-'),i=months.indexOf(curM);
+  lEl.textContent=MN[+m-1][0].toUpperCase()+MN[+m-1].slice(1)+' '+y;
+  pBtn.disabled=i<=0;nBtn.disabled=i>=months.length-1;
+}
+let busy=false;
+async function go(dir){
+  const i=months.indexOf(curM)+dir;
+  if(busy||i<0||i>=months.length)return;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const swap=()=>{curM=months[i];selD=null;render()};
+  if(reduce){swap();return}
+  busy=true;
+  const body=[gEl,eEl],opt=(d,e)=>({duration:d,easing:e,fill:'both'});
+  const out=[
+    lEl.animate([{transform:'translateX(0)',opacity:1},{transform:`translateX(${-dir*110}%)`,opacity:0}],opt(240,'cubic-bezier(.5,0,.9,.5)')),
+    ...body.map(t=>t.animate([{transform:'translateX(0)',opacity:1},{transform:`translateX(${-dir*32}px)`,opacity:0}],opt(220,'ease-in')))
+  ];
+  await Promise.all(out.map(a=>a.finished));
+  swap();
+  const inn=[
+    lEl.animate([{transform:`translateX(${dir*110}%)`,opacity:0},{transform:'translateX(0)',opacity:1}],opt(340,'cubic-bezier(.2,.8,.2,1)')),
+    ...body.map(t=>t.animate([{transform:`translateX(${dir*32}px)`,opacity:0},{transform:'translateX(0)',opacity:1}],opt(320,'cubic-bezier(.2,.8,.2,1)')))
+  ];
+  await Promise.all(inn.map(a=>a.finished));
+  [lEl,...body].forEach(t=>t.getAnimations().forEach(a=>a.cancel()));
+  busy=false;
+}
+pBtn.onclick=()=>go(-1);nBtn.onclick=()=>go(1);
+function renderGrid(){
+  const [y,m]=curM.split('-').map(Number);
+  const first=new Date(y,m-1,1),days=new Date(y,m,0).getDate();
+  const off=(first.getDay()+6)%7;
+  let h=['L','M','M','J','V','S','D'].map(x=>`<div class="dow">${x}</div>`).join('');
+  for(let i=0;i<off;i++)h+='<div></div>';
+  for(let d=1;d<=days;d++){
+    const iso=`${curM}-${String(d).padStart(2,'0')}`;
+    const ev=SEMS.find(s=>s.d===iso);
+    h+=ev?`<button class="day has ${selD===iso?'sel':''}" data-d="${iso}" aria-label="${d} de ${MN[m-1]}: ${ev.t}">${d}</button>`:`<div class="day">${d}</div>`;
+  }
+  gEl.innerHTML=h;
+  gEl.querySelectorAll('.has').forEach(b=>b.onclick=()=>{selD=selD===b.dataset.d?null:b.dataset.d;render()});
+}
+function renderEvents(){
+  const list=SEMS.filter(s=>keyOf(s.d)===curM);
+  eEl.innerHTML=list.length?list.map(s=>{const [,m,d]=s.d.split('-');return `
+  <div class="ev ${selD===s.d?'sel':''}" role="button" tabindex="0" data-sd="${s.d}" aria-label="Ver programa: ${s.t}">
+    <div class="date"><b>${+d}</b><span>${MS[+m-1]}</span></div>
+    <div><h4>${s.t}</h4><div class="cap">${s.p}</div></div>
+    <div class="rt"><span class="pill ${s.s<=8?'pill-lime':'pill-out'}">${s.s} cupos</span><a class="link cap" href="#registro" data-sem="${s.d}">Reservar</a></div>
+  </div>`}).join(''):'<p class="empty">Sin seminarios este mes.</p>';
+  eEl.querySelectorAll('.ev').forEach(c=>{c.addEventListener('click',()=>openModal(c.dataset.sd));c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(c.dataset.sd)}})});
+  eEl.querySelectorAll('[data-sem]').forEach(a=>a.addEventListener('click',(e)=>{e.stopPropagation();setMode('presencial');document.getElementById('sem-select').value=a.dataset.sem}));
+}
+function render(){renderMonths();renderGrid();renderEvents()}
+render();
+
+/* formulario */
+const semSel=document.getElementById('sem-select');
+semSel.innerHTML=SEMS.map(s=>{const [y,m,d]=s.d.split('-');return `<option value="${s.d}">${+d} ${MS[+m-1].toLowerCase()} ${y} · ${s.t}</option>`}).join('');
+function setMode(m){
+  document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===m));
+  document.getElementById('sem-label').style.display=m==='presencial'?'grid':'none';
+  document.getElementById('pais-label').style.display=m==='presencial'?'none':'grid';
+}
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
+document.querySelectorAll('[data-mode]').forEach(a=>{if(a.tagName==='A')a.addEventListener('click',()=>setMode(a.dataset.mode))});
+document.getElementById('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const f=e.target,ok=document.getElementById('ok');
+  if(!f.nombre.value.trim()||!f.email.validity.valid||!f.email.value){ok.className='ok on';ok.textContent='Completá tu nombre y un email válido.';return}
+  ok.className='ok on';
+  ok.textContent=`Gracias, ${f.nombre.value.trim()}. (Demo: este formulario todavía no envía datos.)`;
+});
+const totop=document.getElementById('totop');
+const onScroll=()=>totop.classList.toggle('show',scrollY>40);
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+totop.addEventListener('click',()=>scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'}));
+/* modal de programa */
+const PROG={
+ 'N1':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Material del nivel 1'],days:[['Jornada única',[['09:00','Recepción y presentación del grupo'],['09:30','Seguridad y conocimiento del caballo'],['10:30','Postura y equilibrio a caballo'],['12:30','Almuerzo'],['14:00','Agarre del taco y primeros golpes'],['16:00','Evaluación y devolución individual']]]]},
+ 'N2':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Análisis de video de tu golpe'],days:[['Jornada única',[['09:00','Diagnóstico técnico individual'],['10:00','Galope controlado y giros'],['11:30','Derecha y revés: precisión'],['13:00','Almuerzo'],['14:30','La línea de la bocha'],['16:00','Revisión en video y plan de práctica']]]]},
+ 'N3':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Chukkers de práctica'],days:[['Jornada única',[['09:00','Posiciones 1 a 4'],['10:30','Marcación y ride-off'],['12:00','Pases y combinaciones'],['13:00','Almuerzo'],['14:30','Chukkers de práctica con árbitro'],['16:30','Devolución del partido']]]]},
+ 'N4':{dur:'1 jornada · 9 a 17 h',inc:['Caballos y equipamiento','Almuerzo','Análisis de video de partidos'],days:[['Jornada única',[['09:00','Ritmo de juego y estrategia'],['10:30','Manejo de caballada'],['12:00','Preparación física y mental'],['13:00','Almuerzo'],['14:30','Partido simulado'],['16:30','Análisis de video y plan de competición']]]]},
+ 'N5':{dur:'1 jornada · 9 a 17 h',inc:['Material del curso','Almuerzo','Práctica tutelada'],days:[['Jornada única',[['09:00','Metodología de enseñanza'],['10:30','Diseño y secuencia de clases'],['12:00','Seguridad y primeros auxilios'],['13:00','Almuerzo'],['14:30','Práctica tutelada con alumnos'],['16:30','Evaluación del instructor']]]]},
+ 'CERT-04':{dur:'1 jornada · 9 a 17 h',inc:['Material del taller','Almuerzo','Examen práctico'],days:[['Jornada única',[['09:00','Reglamento: lo esencial'],['10:30','Criterio de faltas'],['12:00','Posicionamiento del árbitro'],['13:00','Almuerzo'],['14:30','Arbitraje de un partido en vivo'],['16:30','Examen y devolución']]]]}
+};
+const modal=document.getElementById('modal'),mBody=document.getElementById('m-body'),mFoot=document.getElementById('m-foot');
+let lastFocus=null,curSem=null;
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function openModal(iso){
+  const s=SEMS.find(x=>x.d===iso);if(!s)return;
+  curSem=s;const p=PROG[s.n]||PROG.N1;
+  const [y,m,d]=s.d.split('-').map(Number);
+  const fecha=new Date(y,m-1,d).toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  mBody.innerHTML=`
+  <header class="m-head">
+    <div class="tags"><span class="pill pill-lime">${esc(s.n)}</span><span class="pill pill-out">Programa de ejemplo · a confirmar</span></div>
+    <h2 class="h-lg" id="m-title">${esc(s.t)}</h2>
+    <p class="body muted">${fecha[0].toUpperCase()+fecha.slice(1)}</p>
+  </header>
+  <div class="m-grid">
+    <dl class="m-facts">
+      <div><dt>Sede</dt><dd>${esc(s.p)}</dd></div>
+      <div><dt>Duración</dt><dd>${esc(p.dur)}</dd></div>
+      <div><dt>Cupos</dt><dd>${s.s} lugares</dd></div>
+      <div><dt>Incluye</dt><dd><ul>${p.inc.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></dd></div>
+    </dl>
+    <div>${p.days.map(([t,items])=>`<section class="m-day" style="padding:0"><h3>${esc(t)}</h3><ol>${items.map(([h,x])=>`<li><time>${h}</time><span>${esc(x)}</span></li>`).join('')}</ol></section>`).join('')}
+      <p class="m-note">Horarios y contenidos sujetos a confirmación por la dirección del centro.</p></div>
+  </div>`;
+  mFoot.innerHTML=`<div class="price"><b>USD 250</b><span class="cap muted">por seminario · ${s.s} cupos</span></div>
+  <div class="acts"><button class="btn btn-inv" type="button" data-close>Cerrar</button><a class="btn btn-fill" href="#registro" id="m-reserve">Reservar mi lugar</a></div>`;
+  lastFocus=document.activeElement;
+  modal.classList.add('open');modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  mBody.scrollTop=0;
+  modal.querySelector('.m-panel').focus();
+}
+function closeModal(){
+  if(!modal.classList.contains('open'))return;
+  modal.classList.remove('open');modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+  if(lastFocus&&lastFocus.focus)lastFocus.focus({preventScroll:true});
+}
+modal.addEventListener('click',e=>{
+  if(e.target.closest('[data-close]'))closeModal();
+  if(e.target.closest('#m-reserve')){setMode('presencial');document.getElementById('sem-select').value=curSem.d;closeModal()}
+});
+document.addEventListener('keydown',e=>{
+  if(!modal.classList.contains('open'))return;
+  if(e.key==='Escape'){closeModal();return}
+  if(e.key==='Tab'){
+    const f=[...modal.querySelectorAll('button,a[href]')].filter(x=>x.offsetParent!==null);
+    if(!f.length)return;const a=f[0],b=f[f.length-1];
+    if(e.shiftKey&&(document.activeElement===a||document.activeElement===modal.querySelector('.m-panel'))){e.preventDefault();b.focus()}
+    else if(!e.shiftKey&&document.activeElement===b){e.preventDefault();a.focus()}
+  }
+});
+</script>
+</body>
+</html>
