@@ -576,6 +576,22 @@ footer .dot{background:var(--ivory)!important}
 .head p{justify-self:stretch;max-width:none}
 .h-lg,.path .h-lg{letter-spacing:-.02em}
 .display{letter-spacing:-.035em}
+/* hover de botones: fondo más oscuro, texto claro, sin subrayado */
+.btn,.lang button,.seg button,.mbtn,.totop{transition:background-color .2s ease,color .2s ease,border-color .2s ease}
+.btn:hover,.btn-fill:hover,.btn-inv:hover,.seg button:hover,.mbtn:hover,.totop:hover,.lang button:not([aria-pressed="true"]):hover{background:var(--ink)!important;color:var(--ivory)!important;border-color:var(--ink)!important;text-decoration:none!important}
+.hero .actions .btn-fill:hover{background:var(--clay-deep)!important;border-color:var(--clay-deep)!important;color:var(--ivory)!important}
+@media (max-width:980px){#faq-grid{grid-template-columns:1fr!important;gap:24px!important}}
+/* menos aire entre Voces y Programa (mismo fondo) */
+#voces{padding-bottom:0}
+#programa{padding-top:72px}
+@media (max-width:980px){#programa{padding-top:48px}}
+nav{transition:transform .3s ease}
+nav.hide{transform:translateY(-100%)}
+@media (prefers-reduced-motion:reduce){nav{transition:none}}
+/* menos aire entre Inscripción y Registro (mismo fondo) */
+#inscripcion{padding-bottom:0}
+#registro{padding-top:64px}
+@media (max-width:980px){#registro{padding-top:40px}}
 /* un solo radio para todos los botones */
 .btn,.btn-inv,.btn-fill,.mbtn,.mnav,.m-x,.seg button,.step,.vid .play,.totop,.nav-cta .btn{border-radius:8px}
 /* selector de idioma */
@@ -584,6 +600,27 @@ footer .dot{background:var(--ivory)!important}
 .lang button[aria-pressed="true"]{background:var(--ink);color:var(--ivory)}
 .lang button:not([aria-pressed="true"]):hover{background:var(--stone)}
 .nav-cta{align-items:center}
+</style>
+<style id="hero-full">
+/* hero: imagen a pantalla completa con panel de vidrio */
+.hero{padding:0;position:relative}
+.hero .wrap{max-width:none;padding:0 24px 40px max(24px,calc((100vw - 1232px)/2));display:flex;align-items:flex-end;min-height:clamp(620px,88vh,800px);position:relative}
+.hero-art{position:absolute;inset:0;aspect-ratio:auto;border-radius:0;z-index:0}
+.hero-photo{object-position:50% 35%}
+.hero .wrap>div:first-child{position:relative;z-index:1;background:rgba(250,249,245,.22);-webkit-backdrop-filter:blur(32px) saturate(160%);backdrop-filter:blur(32px) saturate(160%);border:1px solid rgba(255,255,255,.45);border-radius:24px;padding:40px;max-width:600px}
+.hero .display{font-size:clamp(32px,4vw,48px);margin:16px 0}
+.hero .body{font-size:18px;color:var(--ink)}
+.hero .stats span,.hero .pill-lime{color:var(--ink)!important}
+.hero .stats{margin-top:32px;gap:32px}
+.hero .stats b{font-size:34px}
+.hero-art .cap-b{display:none}
+.hero-art .tag{left:max(24px,calc((100vw - 1232px)/2));top:24px}
+@media (max-width:980px){
+  .hero .wrap{display:flex;flex-direction:column-reverse;align-items:stretch;padding:0;min-height:0}
+  .hero-art{position:relative;aspect-ratio:4/3;inset:auto}
+  .hero .wrap>div:first-child{margin:-56px 16px 0;padding:24px;max-width:none;background:rgba(250,249,245,.94);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .hero-art .tag{left:16px}
+}
 </style>
 </head>
 <body>
@@ -626,7 +663,6 @@ footer .dot{background:var(--ivory)!important}
     </div>
     <div class="hero-art" role="img" aria-label="Un instructor enseñando a una jugadora a caballo en la cancha">
       <img src="img/hero-clase.png" alt="" class="hero-photo">
-      <span class="pill tag-t tag">AAP-01 · Método</span>
       <div class="cap-b"><span class="cap-card sub">Del primer swing al primer chukker.</span></div>
     </div>
   </div>
@@ -687,13 +723,6 @@ footer .dot{background:var(--ivory)!important}
 <!-- TESTIMONIOS -->
 <section id="voces" class="dark">
   <div class="wrap">
-    <div class="head">
-      <div>
-        <span class="pill pill-out">Voces del polo</span>
-        <h2 class="h-lg">Lo que dice quien lo vive.</h2>
-      </div>
-      <p class="body muted">Jugadores y dirigentes que respaldan el método del centro.</p>
-    </div>
     <div class="quotes">
       <figure class="q big">
         <blockquote>“Eduardo, conozco tu pasión por este deporte desde hace mucho, cuando jugabas con mi padre y yo recién empezaba a pegarle a la bocha. En estos años vi que tu método de enseñanza da resultados increíbles con jugadores y principiantes de todos los niveles. Por la didáctica de tu método y por cómo lo enseñás, estoy seguro de que sos el profesor de polo número 1. Te deseo el mayor de los éxitos.”</blockquote>
@@ -872,7 +901,7 @@ footer .dot{background:var(--ivory)!important}
     <div><h5>Inscripción</h5><ul><li><a href="#inscripcion">Plataforma online</a></li><li><a href="#seminarios">Seminarios</a></li><li><a href="#registro">Registro</a></li></ul></div>
     <div><h5>Contacto</h5><ul><li>[email@aap.org.ar]</li><li>[Teléfono]</li><li>[Dirección]</li></ul></div>
   </div>
-  <div class="legal"><span>© 2026 Asociación Argentina de Polo</span><span class="mono">Borrador de diseño v0.1</span></div>
+  <div class="legal"><span>© 2026 Asociación Argentina de Polo</span></div>
 </footer>
 
 <div class="modal" id="modal" aria-hidden="true">
@@ -971,8 +1000,7 @@ const EN={
 '¿Puedo empezar online y luego pasar a lo presencial?':'Can I start online and later move to in-person?','[Respuesta a definir: los niveles se acreditan en ambas modalidades.]':'[Answer to be defined: levels are credited in both formats.]',
 'Un programa de la Asociación Argentina de Polo.':'A program of the Argentine Polo Association.',
 'Centro':'Center','Inscripción':'Enrollment','Contacto':'Contact','[Teléfono]':'[Phone]','[Dirección]':'[Address]',
-'© 2026 Asociación Argentina de Polo':'© 2026 Argentine Polo Association','Borrador de diseño v0.1':'Design draft v0.1',
-'Cerrar':'Close','Volver arriba':'Back to top'
+'© 2026 Asociación Argentina de Polo':'© 2026 Argentine Polo Association','Cerrar':'Close','Volver arriba':'Back to top'
 };
 const SKIP='#panels,#certs,#grid,#events,#mlabel,#m-body,#m-foot,#sem-select';
 const tnodes=[],anodes=[];
@@ -1047,7 +1075,7 @@ async function goLevel(i){
   }
   busyL=false;
 }
-steps.forEach((b,k)=>b.addEventListener('click',()=>goLevel(k)));
+steps.forEach((b,k)=>b.addEventListener('click',()=>{goLevel(k);alignSteps()}));
 
 const play='<svg viewBox="0 0 14 14" fill="currentColor"><path d="M2 1l11 6-11 6z"/></svg>';
 const CERTS=[
@@ -1130,8 +1158,17 @@ function renderGrid(){
     h+=ev?`<button class="day has ${selD===iso?'sel':''}" data-d="${iso}" aria-label="${U().dayAria(d,U().mn[m-1],sm(ev).t)}">${d}</button>`:`<div class="day">${d}</div>`;
   }
   gEl.innerHTML=h;
-  gEl.querySelectorAll('.has').forEach(b=>b.onclick=()=>{selD=selD===b.dataset.d?null:b.dataset.d;render()});
+  gEl.querySelectorAll('.has').forEach(b=>b.onclick=()=>{selD=selD===b.dataset.d?null:b.dataset.d;render();alignMonthNav()});
 }
+function scrollToEl(el,gap){
+  gap=gap==null?12:gap;
+  const raw=el.getBoundingClientRect().top+scrollY,nh=document.querySelector('nav').offsetHeight;
+  const down=raw-gap,y=down>scrollY?down:raw-nh-gap;
+  scrollTo({top:Math.max(0,y),behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
+}
+function scrollToRegistro(){scrollToEl(document.querySelector('#registro .h-lg'))}
+function alignMonthNav(){if(matchMedia('(max-width:980px)').matches)scrollToEl(document.querySelector('.monthnav'))}
+function alignSteps(){if(matchMedia('(max-width:980px)').matches)scrollToEl(document.querySelector('.steps'))}
 function renderEvents(){
   const list=SEMS.filter(s=>keyOf(s.d)===curM);
   eEl.innerHTML=list.length?list.map(s0=>{const s=sm(s0);const [,m,d]=s.d.split('-');return `
@@ -1141,7 +1178,7 @@ function renderEvents(){
     <div class="rt"><span class="pill ${s.s<=8?'pill-lime':'pill-out'}">${s.s} ${U().spots}</span><a class="link cap" href="#registro" data-sem="${s.d}">${U().reserve}</a></div>
   </div>`}).join(''):`<p class="empty">${U().none}</p>`;
   eEl.querySelectorAll('.ev').forEach(c=>{c.addEventListener('click',()=>openModal(c.dataset.sd));c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(c.dataset.sd)}})});
-  eEl.querySelectorAll('[data-sem]').forEach(a=>a.addEventListener('click',(e)=>{e.stopPropagation();setMode('presencial');document.getElementById('sem-select').value=a.dataset.sem}));
+  eEl.querySelectorAll('[data-sem]').forEach(a=>a.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();setMode('presencial');document.getElementById('sem-select').value=a.dataset.sem;scrollToRegistro()}));
 }
 function render(){renderMonths();renderGrid();renderEvents()}
 
@@ -1228,7 +1265,7 @@ function closeModal(){
 }
 modal.addEventListener('click',e=>{
   if(e.target.closest('[data-close]'))closeModal();
-  if(e.target.closest('#m-reserve')){setMode('presencial');document.getElementById('sem-select').value=curSem.d;closeModal()}
+  if(e.target.closest('#m-reserve')){e.preventDefault();setMode('presencial');document.getElementById('sem-select').value=curSem.d;closeModal();setTimeout(scrollToRegistro,50)}
 });
 document.addEventListener('keydown',e=>{
   if(!modal.classList.contains('open'))return;
@@ -1241,6 +1278,26 @@ document.addEventListener('keydown',e=>{
   }
 });
 
+/* nav: se oculta al bajar y reaparece al subir */
+const navEl=document.querySelector('nav');let lastY=scrollY;
+addEventListener('scroll',()=>{
+  const y=scrollY,dy=y-lastY;
+  if(Math.abs(dy)<6)return;
+  if(y<=navEl.offsetHeight+40)navEl.classList.remove('hide');
+  else if(dy>0&&!navEl.contains(document.activeElement))navEl.classList.add('hide');
+  else if(dy<0)navEl.classList.remove('hide');
+  lastY=y;
+},{passive:true});
+navEl.addEventListener('focusin',()=>navEl.classList.remove('hide'));
+/* enlaces internos: respetan que el nav se oculta al bajar */
+document.addEventListener('click',e=>{
+  if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey)return;
+  const a=e.target.closest('a[href^="#"]');if(!a)return;
+  const id=a.getAttribute('href').slice(1);
+  if(!id||id==='top'){if(id==='top'){e.preventDefault();scrollTo({top:0,behavior:'smooth'})}return}
+  const t=document.getElementById(id);if(!t)return;
+  e.preventDefault();scrollToEl(t,16);
+});
 /* selector de idioma */
 function setLang(l,save){
   LANG=l;
